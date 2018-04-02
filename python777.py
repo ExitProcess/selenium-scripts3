@@ -10,8 +10,8 @@ while True:
         break
     queries.append(query)
 
-path='C:\SeleniumDrivers\Chrome\chromedriver.exe'
-driver=webdriver.Chrome(path)
+path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
+driver = webdriver.Chrome(path)
 results = dict()
 
 for query in queries:
@@ -21,7 +21,7 @@ for query in queries:
     elem.send_keys(Keys.RETURN)
     elem2 = driver.find_element_by_id("resultStats")
     elem2 = elem2.text
-    results[query]=elem2
+    results[query] = elem2
 
 print(results)
 driver.close()
