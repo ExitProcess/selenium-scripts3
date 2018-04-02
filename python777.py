@@ -12,18 +12,16 @@ while True:
 
 path='C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver=webdriver.Chrome(path)
-a = 0
 results = dict()
 
 for query in queries:
     driver.get("https://www.google.ru/")
     elem = driver.find_element_by_name("q")
-    elem.send_keys(queries[a])
+    elem.send_keys(query)
     elem.send_keys(Keys.RETURN)
     elem2 = driver.find_element_by_id("resultStats")
     elem2 = elem2.text
-    results[queries[a]]=elem2
-    a += 1
+    results[query]=elem2
 
 print(results)
 driver.close()
