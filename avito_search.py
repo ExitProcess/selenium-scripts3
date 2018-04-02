@@ -13,15 +13,16 @@ elem.click()
 elem2 = select.Select(elem).select_by_visible_text("Квартиры")
 elem3 = driver.find_element_by_id("directions")
 elem3.click()
-WebDriverWait(driver,5).until(EC.element_to_be_clickable((By.XPATH,"//input[@id='rf_district_286']//following::label[1]")))
+WebDriverWait(driver, 5).until(
+    EC.element_to_be_clickable((By.XPATH, "//input[@id='rf_district_286']//following::label[1]")))
 driver.find_element_by_xpath("//input[@id='rf_district_286']//following::label[1]").click()
 
-price = driver.find_element_by_xpath('//*[@id="catalog"]/div[4]/div/div/div/div/div[2]/div/div[2]/input')
-price.send_keys("2000000")
+WebDriverWait(driver, 5).until(
+    EC.element_to_be_clickable((By.XPATH, '//*[@id="catalog"]/div[4]/div/div/div/div/div[2]/div/div[2]/input')))
+driver.find_element_by_xpath('//*[@id="catalog"]/div[4]/div/div/div/div/div[2]/div/div[2]/input').send_keys("2000000")
 
 query = driver.find_element_by_id("search")
 query.send_keys("1-к квартира")
 query.send_keys(Keys.RETURN)
 
 pass
-
