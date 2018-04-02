@@ -28,5 +28,3 @@ for query in queries:
 print(results)
 driver.close()
 driver.quit()
-pass
-pass
