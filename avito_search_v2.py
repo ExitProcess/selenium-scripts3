@@ -15,17 +15,13 @@ elem2 = select.Select(elem).select_by_visible_text("Автомобили")
 elem3 = driver.find_element_by_id("directions")
 elem3.click()
 
-dropdown = ("")
-
 
 def open_dropdowns(xpath):
     global dropdown, dropdown2
     WebDriverWait(driver, 12).until(
         EC.element_to_be_clickable((By.XPATH, xpath)))
-    dropdown = driver.find_element_by_xpath(xpath)
-    dropdown2 = dropdown
+    dropdown = dropdown2 = driver.find_element_by_xpath(xpath)
     dropdown.click()
-
 
 # label[1] - ленинский, [2] - октябрьский, [3] - пролетарский
 open_dropdowns('//div[contains(@class, "tab")]//following::label[1]')
@@ -36,7 +32,7 @@ open_dropdowns('//div[contains(@class, "tab")]//following::label[3]')
 open_dropdowns('//*[@id="catalog"]/div[4]/div/div/div/div[2]/div[1]/div/select')
 
 # выбрать volvo
-select.Select(dropdown).select_by_value("1219")  # select.Select(dropdown).select_by_visible_text("Volvo")
+select.Select(dropdown2).select_by_value("1219")  # select.Select(dropdown).select_by_visible_text("Volvo")
 
 WebDriverWait(driver, 3)
 open_dropdowns('//*[@id="catalog"]/div[4]/div/div/div/div[1]/div[1]/ul/li[1]/label/span')
