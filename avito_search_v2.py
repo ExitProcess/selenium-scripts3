@@ -62,9 +62,12 @@ ActionChains(driver).click_and_hold(slider_right).perform()
 # до начала проверки надо дернуть правый слайдер, чтобы значение "от 2000  г.в." сменилось на "2000—2017  г.в."
 ActionChains(driver).move_by_offset(-3, 0).perform()
 
-
 while dropdown2.text > "2000—2011  г.в.":
     ActionChains(driver).move_by_offset(-1, 0).perform()
 ActionChains(driver).release(slider_right).perform()
 
-pass
+search = driver.find_element_by_id('search')
+search.send_keys(Keys.RETURN)
+
+driver.close()
+driver.quit()
