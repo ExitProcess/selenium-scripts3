@@ -26,6 +26,7 @@ def open_dropdowns(xpath):
     dropdown2 = dropdown
     dropdown.click()
 
+
 # label[1] - ленинский, [2] - октябрьский, [3] - пролетарский
 open_dropdowns('//div[contains(@class, "tab")]//following::label[1]')
 open_dropdowns('//div[contains(@class, "tab")]//following::label[2]')
@@ -46,14 +47,24 @@ open_dropdowns('//*[@id="pre-filters"]/label[2]/span')
 
 open_dropdowns('//*[@id="catalog"]/div[4]/div/div/div/div[2]/div[4]/div/div/div[1]/span')
 
-slider_left = driver.find_element_by_xpath('//*[@id="catalog"]/div[4]/div/div/div/div[2]/div[4]/div/div/div[2]/div/div/div/div/div/div/div/i[1]')
-
+slider_left = driver.find_element_by_xpath(
+    '//*[@id="catalog"]/div[4]/div/div/div/div[2]/div[4]/div/div/div[2]/div/div/div/div/div/div/div/i[1]')
 ActionChains(driver).click_and_hold(slider_left).perform()
-
 
 while dropdown2.text < "от 2000  г.в.":
     ActionChains(driver).move_by_offset(1, 0).perform()
-
 ActionChains(driver).release(slider_left).perform()
+
+slider_right = driver.find_element_by_xpath(
+    '//*[@id="catalog"]/div[4]/div/div/div/div[2]/div[4]/div/div/div[2]/div/div/div/div/div/div/div/i[2]')
+ActionChains(driver).click_and_hold(slider_right).perform()
+
+# до начала проверки надо дернуть правый слайдер, чтобы значение "от 2000  г.в." сменилось на "2000—2017  г.в."
+ActionChains(driver).move_by_offset(-3, 0).perform()
+
+
+while dropdown2.text > "2000—2011  г.в.":
+    ActionChains(driver).move_by_offset(-1, 0).perform()
+ActionChains(driver).release(slider_right).perform()
 
 pass
