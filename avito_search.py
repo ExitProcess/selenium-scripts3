@@ -24,9 +24,13 @@ WebDriverWait(driver, 8).until(
     EC.element_to_be_clickable((By.XPATH, '//input[@placeholder="до, руб."]')))
 driver.find_element_by_xpath('//input[@placeholder="до, руб."]').send_keys("2000000")
 
-query = driver.find_element_by_id("search")
-query.send_keys("1-к квартира")
-query.send_keys(Keys.RETURN)
+def search(keys):
+    query = driver.find_element_by_id("search")
+    query.clear()
+    query.send_keys(keys)
+    query.send_keys(Keys.RETURN)
+
+search("1-к квартира")
 
 """тип объявления == Продам"""
 WebDriverWait(driver, 8).until(
@@ -60,9 +64,6 @@ WebDriverWait(driver, 8).until(
     EC.element_to_be_clickable((By.XPATH, '//*[@id="catalog"]/div[4]/div/div/div/div/div[3]/div/div/div[2]/div/div/div/ul/li[2]/label')))
 driver.find_element_by_xpath('//*[@id="catalog"]/div[4]/div/div/div/div/div[3]/div/div/div[2]/div/div/div/ul/li[2]/label').click()
 
-query2 = driver.find_element_by_id("search")
-query2.clear()
-query2.send_keys("квартира")
-query2.send_keys(Keys.RETURN)
+search("квартира")
 
 pass
