@@ -13,11 +13,13 @@ elem.click()
 elem2 = select.Select(elem).select_by_visible_text("Квартиры")
 elem3 = driver.find_element_by_id("directions")
 elem3.click()
-WebDriverWait(driver, 5).until(
-    EC.element_to_be_clickable((By.XPATH, "//input[@id='rf_district_286']//following::label[1]")))
-driver.find_element_by_xpath("//input[@id='rf_district_286']//following::label[1]").click()
 
-WebDriverWait(driver, 5).until(
+"""label[1] - ленинский, [2] - октябрьский, [3] - пролетарский"""
+WebDriverWait(driver, 8).until(
+    EC.element_to_be_clickable((By.XPATH, '//div[contains(@class, "tab")]//following::label[1]')))
+driver.find_element_by_xpath('//div[contains(@class, "tab")]//following::label[1]').click()
+
+WebDriverWait(driver, 8).until(
     EC.element_to_be_clickable((By.XPATH, '//input[@placeholder="до, руб."]')))
 driver.find_element_by_xpath('//input[@placeholder="до, руб."]').send_keys("2000000")
 
