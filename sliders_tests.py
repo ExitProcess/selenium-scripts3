@@ -17,3 +17,6 @@ driver.get("https://soundcloud.com/user-95923847/5-1")
 cookie_close = WebDriverWait (driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
                                                                               ".announcement__dismiss")))
 cookie_close.click()
+
+repeat = driver.find_element_by_xpath("//button[@title='Repeat']")
+repeat.click()
