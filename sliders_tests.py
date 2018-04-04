@@ -10,13 +10,20 @@ path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
 driver.get("https://soundcloud.com/user-95923847/5-1")
 
-#play = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH,
-#                                        '//*[@id="content"]/div/div[4]/div/div[2]/div[2]/div/div/div[1]/a')))
-#play.click()
-
 cookie_close = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
-                                                                              ".announcement__dismiss")))
+                                                                        ".announcement__dismiss")))
 cookie_close.click()
 
 repeat = driver.find_element_by_xpath("//button[@title='Repeat']")
 repeat.click()
+
+volume_button = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH,
+                                                 "//div[@class='volume__iconWrapper']")))
+ActionChains(driver).move_to_element(volume_button).perform()
+
+slider = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH,
+                                            "//div[@class='volume__sliderHandle']")))
+
+ActionChains(driver).move_to_element(slider).perform()
+ActionChains(driver).click_and_hold(slider).perform()
+pass
