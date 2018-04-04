@@ -22,14 +22,11 @@ def search(keys):
     query.send_keys(Keys.RETURN)
 
 
-dropdown = ("")
-
-
 def open_dropdowns(xpath):
-    global dropdown
+    global dropdown, dropdown2
     WebDriverWait(driver, 8).until(
         EC.element_to_be_clickable((By.XPATH, xpath)))
-    dropdown = driver.find_element_by_xpath(xpath)
+    dropdown = dropdown2 = driver.find_element_by_xpath(xpath)
     dropdown.click()
 
 
@@ -47,7 +44,7 @@ search("1-к квартира")
 open_dropdowns('//*[@id="catalog"]/div[4]/div/div/div/div/div[1]/div/select')
 
 # тип объявления == Продам
-select.Select(dropdown).select_by_value("1059")  # select.Select(dropdown).select_by_visible_text("Продам")
+select.Select(dropdown2).select_by_value("1059")  # select.Select(dropdown).select_by_visible_text("Продам")
 
 # раскрывает список количество комнат
 open_dropdowns('//*[@id="catalog"]/div[4]/div/div/div/div/div[2]/div/div/div/span')
