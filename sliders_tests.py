@@ -1,3 +1,6 @@
+# тест слайдера
+# пока что включает бабангиду и фиксирует курсор на ползунке громкости
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import select
