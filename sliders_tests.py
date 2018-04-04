@@ -14,7 +14,7 @@ driver.get("https://soundcloud.com/user-95923847/5-1")
 #                                        '//*[@id="content"]/div/div[4]/div/div[2]/div[2]/div/div/div[1]/a')))
 #play.click()
 
-cookie_close = WebDriverWait (driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
+cookie_close = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
                                                                               ".announcement__dismiss")))
 cookie_close.click()
 
