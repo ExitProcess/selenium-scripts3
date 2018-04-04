@@ -76,5 +76,9 @@ slider_release(slider_right)
 search = driver.find_element_by_id('search')
 search.send_keys(Keys.RETURN)
 
+# test
+# search_button = driver.find_element_by_xpath('//*[@id="search_form"]/div[1]/div[1]/div[2]/input')
+# ActionChains(driver).move_to_element(search_button).perform()
+
 driver.close()
 driver.quit()
