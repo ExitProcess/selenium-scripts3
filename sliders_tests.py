@@ -34,12 +34,19 @@ ActionChains(driver).move_to_element(volume_button).perform()
 #ActionChains(driver).move_to_element(slider).perform()
 #ActionChains(driver).click_and_hold(slider).perform()
 
+def volume_down(x):
+    while x > 0:
+        ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
+        x -= 10
+
+def volume_up(x):
+    while x > 0:
+        ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
+        x -= 10
+
 # с начала воспроизведения громкость устанавливается на 50%
-ActionChains(driver).key_down(Keys.LEFT_SHIFT).send_keys(Keys.ARROW_DOWN).perform()
-ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
-ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
-ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
-ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
+ActionChains(driver).key_down(Keys.LEFT_SHIFT).perform()
+volume_down(50)
 
 # цикл проверяет время воспроизведения трека
 # громкость на soundcloud регулируется shift+up, shift+down
@@ -48,10 +55,7 @@ seconds = 300
 while seconds > 1:
     current_time = driver.find_element_by_css_selector('.playbackTimeline__timePassed [aria-hidden]')
     if current_time.text == "0:10":
-        ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
-        ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
-        ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
-        ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
+        volume_up(40)
         ActionChains(driver).key_up(Keys.LEFT_SHIFT).perform()
         break
     print(current_time.text)
