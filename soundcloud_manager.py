@@ -8,6 +8,8 @@ next -- переключает на следующий трек
 shuffle -- перемешивание
 repeat (track, all, none) -- повтор (трека, всех треков, без рипита)
 volume (-30, 40) -- громкость (убавить на 30%, прибавить на 40%)
+** можно вводить любые значения, например 55, -37 и т.д.: разряд единиц не затрагивается
+*** скрипт научился обрабатывать любые значения, теперь не падает при play0 и подобных данных
 
 """
 
@@ -87,9 +89,8 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-#   elif "0" in user and (len(user) > 1):  # если в строке есть ноль и строка больше 1 (защита от дурака)
-    elif (str.find(user, "0") != -1) and len(user) > 1:
-        volume = int(user)  # преобразовываем в целое (пока нет полной защиты от дурака, например от play0, 000 и т.д.)
+    elif str.isdigit(user) or str.find(user, "-") == 0:
+        volume = int(user)
         if volume < 0:
             volume = -volume
             volume_down(volume)
@@ -98,7 +99,7 @@ def manager(x):
 
 
 def volume_up(y):
-    while y > 0:
+    while y >= 9:
         ActionChains(driver).key_down(Keys.LEFT_SHIFT).perform()
         ActionChains(driver).send_keys(Keys.ARROW_UP).perform()
         ActionChains(driver).key_up(Keys.LEFT_SHIFT).perform()
@@ -106,7 +107,7 @@ def volume_up(y):
 
 
 def volume_down(y):
-    while y > 0:
+    while y >= 9:
         ActionChains(driver).key_down(Keys.LEFT_SHIFT).perform()
         ActionChains(driver).send_keys(Keys.ARROW_DOWN).perform()
         ActionChains(driver).key_up(Keys.LEFT_SHIFT).perform()
