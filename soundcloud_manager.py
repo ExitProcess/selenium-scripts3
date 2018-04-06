@@ -90,9 +90,9 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-    elif str.isdigit(user) or str.find(user, "-") == 0:
-        if str.find(user, "-", 1) == -1 and len(user) > 1:
-            if -100 <= int(user) <= 100:  # от 100 до -100
+    elif str.isdigit(user) or str.find(user, "-") == 0: # если строка в число==True или строка начинается с "-" (user[0]==-)
+        if str.isdigit(user[1:]):  # если строка в число без знака "-" == True (user[1:]==int)
+            if -100 <= int(user) <= 100:  # если диапазон от 100 до -100
                 volume = int(user)
                 if volume < 0:
                     volume = -volume
