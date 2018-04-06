@@ -8,9 +8,9 @@ next -- переключает на следующий трек
 shuffle -- перемешивание
 repeat (track, all, none) -- повтор (трека, всех треков, без рипита)
 volume (-30, 40) -- громкость (убавить на 30%, прибавить на 40%)
-** можно вводить любые значения, например 55, -37 и т.д.: разряд единиц не затрагивается
-*** скрипт научился обрабатывать любые значения, теперь не падает при play0 и подобных данных
-**** теперь громкость прибавляется в диапазоне -100 <= x <= 100
+** можно вводить любые значения, например 55, -37 и т.д.: нижний единиц не затрагивается
+*** скрипт научился обрабатывать любые значения, теперь не падает при play0, -, ---, -abcdef и подобных данных
+**** теперь громкость прибавляется в диапазоне -100 <= x <= 100, т.о. нет долгих бесполезных циклов
 
 """
 
@@ -75,11 +75,13 @@ def manager(x):
     if user == "previous":
         driver.find_element_by_css_selector(".skipControl__previous").click()
     elif user == "play":
+        play_button = driver.find_element_by_css_selector(".playControls__elements > [type]")
         if play_button.text == "Play current":
-            driver.find_element_by_css_selector(".playControls__elements > [type]").click()
+            play_button.click()
     elif user == "pause":
+        play_button = driver.find_element_by_css_selector(".playControls__elements > [type]")
         if play_button.text == "Pause current":
-            driver.find_element_by_css_selector(".playControls__elements > [type]").click()
+            play_button.click()
     elif user == "next":
         driver.find_element_by_css_selector(".playControls__next").click()
     elif user == "shuffle":
@@ -90,7 +92,7 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-    elif str.isdigit(user) or str.find(user, "-") == 0: # если строка в число==True или строка начинается с "-" (user[0]==-)
+    elif str.isdigit(user) or str.find(user, "-") == 0: # если строка в число==True или строка начинается с "-" (user[0]== -)
         if str.isdigit(user[1:]):  # если строка в число без знака "-" == True (user[1:]==int)
             if -100 <= int(user) <= 100:  # если диапазон от 100 до -100
                 volume = int(user)
@@ -116,9 +118,6 @@ def volume_down(y):
         ActionChains(driver).key_up(Keys.LEFT_SHIFT).perform()
         y -= 10
 
-
-test = driver.find_element_by_css_selector('[title="Repeat"]')
-play_button = driver.find_element_by_css_selector(".playControls__elements > [type]")
 user = ""
 while user != "close":
     user = input("запрос: ")
