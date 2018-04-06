@@ -89,7 +89,7 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-    elif str.find(user, "0"): # and (len(user) > 1):  # если в строке есть ноль и строка больше 1 (защита от дурака)
+    elif "0" in user and (len(user) > 1):  # если в строке есть ноль и строка больше 1 (защита от дурака)
         volume = int(user)  # преобразовываем в целое (пока нет полной защиты от дурака, например от play0, 000 и т.д.)
         if volume < 0:
             volume = -volume
