@@ -13,13 +13,11 @@ volume (-30, 40) -- громкость (убавить на 30%, прибави�
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support import select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import time
-import string
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -89,7 +87,8 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-    elif "0" in user and (len(user) > 1):  # если в строке есть ноль и строка больше 1 (защита от дурака)
+#   elif "0" in user and (len(user) > 1):  # если в строке есть ноль и строка больше 1 (защита от дурака)
+    elif (str.find(user, "0") != -1) and len(user) > 1:
         volume = int(user)  # преобразовываем в целое (пока нет полной защиты от дурака, например от play0, 000 и т.д.)
         if volume < 0:
             volume = -volume
