@@ -10,6 +10,7 @@ repeat (track, all, none) -- повтор (трека, всех треков, б
 volume (-30, 40) -- громкость (убавить на 30%, прибавить на 40%)
 ** можно вводить любые значения, например 55, -37 и т.д.: разряд единиц не затрагивается
 *** скрипт научился обрабатывать любые значения, теперь не падает при play0 и подобных данных
+**** теперь громкость прибавляется в диапазоне -100 <= x <= 100
 
 """
 
@@ -90,12 +91,14 @@ def manager(x):
     elif user == "repeat none":  # 0
         repeat_none()
     elif str.isdigit(user) or str.find(user, "-") == 0:
-        volume = int(user)
-        if volume < 0:
-            volume = -volume
-            volume_down(volume)
-        else:
-            volume_up(volume)
+        if str.find(user, "-", 1) == -1 and len(user) > 1:
+            if -100 <= int(user) <= 100:  # от 100 до -100
+                volume = int(user)
+                if volume < 0:
+                    volume = -volume
+                    volume_down(volume)
+                else:
+                    volume_up(volume)
 
 
 def volume_up(y):
