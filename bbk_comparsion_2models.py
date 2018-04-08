@@ -3,7 +3,7 @@
 # потом создается второй список, куда входят только ссылки на страницы моделей ресиверов
 # из второго списка выбираются нужные нам модели, а именно 'SMP145HDT2' и 'SMP240HDT2'
 # затем поочередно открываются страницы моделей, каждая добавляется в сравнение, после чего открывается страницы сравнения
-# cкрипт неоптимизирован!!!
+# cкрипт неоптимизирован!!! в скрипте используется метод получения всех ссылок на странице
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -24,7 +24,9 @@ recievers_button = WebDriverWait(driver, 4).until(EC.element_to_be_clickable((By
 ActionChains(driver).click(recievers_button).perform()
 
 model_list = [] # список элементов моделей
+# получаем все ссылки на странице
 link_list = driver.find_elements_by_tag_name("a") # список всех элементов со ссылками
+# отбираем только ссылки, ведущие на модели ресиверов
 for i in link_list: # выбираем только элементы моделей, добавляем в model_list
     if len(i.text) == 10:
         model_list.append(i)
