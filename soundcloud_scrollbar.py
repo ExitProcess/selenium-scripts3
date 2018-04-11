@@ -3,17 +3,14 @@
 формат -- -0:30 -- через actionchains перематывает назад на 0:30 секунд
        --  0:30 -- через actionchains перематывает вперед на 0:30 секунд
 
-1. пока перемотка работает только вперед.
-2. данные от пользователя не обрабатываются.
+*** данные от пользователя не обрабатываются.
 """
 
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-import time
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -42,19 +39,33 @@ def manager(x):
     current_time_sec = int(current_time.text[0])*60 + int(current_time.text[2:4])
     print(current_time_sec)
 
-    # полученные от пользователя данные
-    user_seconds = int(user[0])*60 + int(user[2:4])
-    print(user_seconds)
+    if str.isdigit(user[0]):
+        # полученные от пользователя данные
+        user_seconds = int(user[0])*60 + int(user[2:4])
+        print(user_seconds)
 
-    # текущее время + время от пользователя
-    all_time_sec = current_time_sec + user_seconds
-    print(all_time_sec)
+        # текущее время + время от пользователя
+        all_time_sec = current_time_sec + user_seconds
+        print(all_time_sec)
 
-    while all_time_sec > current_time_sec:
-        ActionChains(driver).move_by_offset(1, 0).perform()
-        current_time = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
+        while all_time_sec > current_time_sec:
+            ActionChains(driver).move_by_offset(1, 0).perform()
+            current_time = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
                                                                                   '.playbackTimeline__timePassed [aria-hidden]')))
-        current_time_sec = int(current_time.text[0]) * 60 + int(current_time.text[2:4])
+            current_time_sec = int(current_time.text[0]) * 60 + int(current_time.text[2:4])
+    else:
+        user_seconds = int(user[1])*60 + int(user[3:5])
+        print("-", user_seconds)
+        all_time_sec = current_time_sec - user_seconds
+        if all_time_sec < 0:
+            driver.find_element_by_css_selector(".skipControl__previous").click()
+        else:
+            while current_time_sec > all_time_sec:
+                ActionChains(driver).move_by_offset(-1, 0).perform()
+                current_time = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
+                                                                                  '.playbackTimeline__timePassed [aria-hidden]')))
+                current_time_sec = int(current_time.text[0]) * 60 + int(current_time.text[2:4])
+
 
 user = ""
 while user != "close":
