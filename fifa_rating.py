@@ -1,12 +1,11 @@
 # вывод рейтинга fifa сборных
-# пока только первые 50 команд, будут все 211 команд
+# выводит все 211 команд
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
 import time
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
@@ -22,10 +21,10 @@ ActionChains(driver).move_to_element(more).perform()
 time.sleep(2)
 ActionChains(driver).click(more).perform()
 
-n = 211
+# rnk - локатор
 rnk = "rnk_1"
 rnk_inc = 1
-while n > 0:
+while rnk_inc < 212:
     position = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID,
                                                                           rnk)))
     results = position.text
