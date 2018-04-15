@@ -35,7 +35,7 @@ window_handles = driver.window_handles
 tutorial_handle = window_handles[0]
 library_handle = window_handles[1]
 
-i = 555
+i = 100
 while i > 0:
     driver.switch_to_window(library_handle)
     driver.switch_to_window(tutorial_handle)
