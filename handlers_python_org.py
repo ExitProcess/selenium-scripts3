@@ -20,14 +20,14 @@ ActionChains(driver).click(button_3_x).perform()
 
 
 lib_ref = WebDriverWait(driver,5).until(EC.element_to_be_clickable((By.LINK_TEXT,
-                                                                    "Library Reference")))
+                                                                      "Library Reference")))
 ActionChains(driver).move_to_element(lib_ref).perform()
 ActionChains(driver).key_down(Keys.LEFT_CONTROL).click().perform()
 ActionChains(driver).key_up(Keys.LEFT_CONTROL).perform()
 
 
 tutorial = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.LINK_TEXT,
-                                                                      "Tutorial")))
+                                                                        "Tutorial")))
 ActionChains(driver).click(tutorial).perform()
 window_handles = driver.window_handles
 
@@ -35,7 +35,7 @@ window_handles = driver.window_handles
 tutorial_handle = window_handles[0]
 library_handle = window_handles[1]
 
-i = 50
+i = 555
 while i > 0:
     driver.switch_to_window(library_handle)
     driver.switch_to_window(tutorial_handle)
