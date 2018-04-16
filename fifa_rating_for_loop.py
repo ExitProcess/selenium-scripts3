@@ -25,8 +25,9 @@ ActionChains(driver).click(more).perform()
 # rnk - локатор
 rnk = "rnk_1"
 for rnk_inc in range(2, 213):
-    position = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID,
-                                                                          rnk)))
+#    position = WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.ID,
+#                                                                          rnk)))
+    position = driver.find_element_by_id(rnk)
     results = position.text
     i = results.rfind(")")
     print(results[0:i + 1])
