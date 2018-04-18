@@ -3,11 +3,6 @@
 # выбирает только сервера со 100% аптаймом
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
-import time
 from selenium.webdriver.support import select
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
