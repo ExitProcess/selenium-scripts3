@@ -37,7 +37,7 @@ for str_count in range(4, 503):
         country_xpath = "// tr[" + str(str_count) + "] / td[5]"
         country_elem = driver.find_element_by_xpath(country_xpath)
 
-        print(ip_port_clear[index+1:], country_elem.text, percent_elem.text)
+        print(ip_port_clear[index + 1:], country_elem.text, percent_elem.text)
 
 driver.close()
 driver.quit()
