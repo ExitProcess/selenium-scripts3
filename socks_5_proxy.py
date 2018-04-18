@@ -20,12 +20,9 @@ sort_all.click()
 select.Select(sort_all).select_by_value("5")
 
 # теперь парсим строки, выбираем сервера со 100% аптаймом
-# если аптайм сервака == 100%, то выводим на печать ip:port и страну
+# если аптайм сервака == 100%, то выводим на печать номер строки, ip:port, страну, аптайм сервака + количество проверок
 # "//tbody/tr[4]" - "//tbody/tr[503]" -- столько всего строк
 for str_count in range(4, 503):
-
-#    str_xpath = "//tbody/tr[" + str(str_count) + "]"
-#  str_elem = driver.find_element_by_xpath(str_xpath)
 
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
     percent_elem = driver.find_element_by_xpath(percents_xpath)
@@ -40,4 +37,5 @@ for str_count in range(4, 503):
 
         print(ip_port_elem.text, country_elem.text, percent_elem.text)
 
-pass
+driver.close()
+driver.quit()
