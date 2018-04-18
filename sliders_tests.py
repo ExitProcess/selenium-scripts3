@@ -1,5 +1,5 @@
 # тест слайдера
-# включает бабангиду и фиксирует курсор на ползунке громкости
+# включает песню и фиксирует курсор на ползунке громкости
 # в зависимости от времени воспроизведения, прибавляет громкость
 
 from selenium import webdriver
@@ -13,7 +13,7 @@ import time
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
-driver.get("https://soundcloud.com/user-95923847/5-1")
+driver.get("https://soundcloud.com/linya-109923603/ne-tvoe-delo-ya-budu-ryadom")
 
 # закрывает сообщение о кукисах
 cookie_close = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
