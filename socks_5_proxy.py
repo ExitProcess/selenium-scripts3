@@ -29,8 +29,8 @@ select.Select(sort_all).select_by_value("5")
 # "//tbody/tr[4]" - "//tbody/tr[503]" -- столько всего строк
 for str_count in range(4, 503):
 
-    str_xpath = "//tbody/tr[" + str(str_count) + "]"
-    str_elem = driver.find_element_by_xpath(str_xpath)
+#    str_xpath = "//tbody/tr[" + str(str_count) + "]"
+#  str_elem = driver.find_element_by_xpath(str_xpath)
 
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
     percent_elem = driver.find_element_by_xpath(percents_xpath)
