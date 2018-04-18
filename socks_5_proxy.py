@@ -35,12 +35,14 @@ for str_count in range(4, 503):
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
     percent_elem = driver.find_element_by_xpath(percents_xpath)
 
-    ip_port_xpath = "// tr[" + str(str_count) + "] / td[1]"
-    ip_port_elem = driver.find_element_by_xpath(ip_port_xpath)
-
-    country_xpath = "// tr[" + str(str_count) + "] / td[5]"
-    country_elem = driver.find_element_by_xpath(country_xpath)
-
     if percent_elem.text[0:3] == "100":
+
+        ip_port_xpath = "// tr[" + str(str_count) + "] / td[1]"
+        ip_port_elem = driver.find_element_by_xpath(ip_port_xpath)
+
+        country_xpath = "// tr[" + str(str_count) + "] / td[5]"
+        country_elem = driver.find_element_by_xpath(country_xpath)
+
         print(ip_port_elem.text, country_elem.text, percent_elem.text)
+
 pass
