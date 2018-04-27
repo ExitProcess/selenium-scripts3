@@ -24,7 +24,7 @@ handles_list = driver.window_handles
 tab1 = handles_list[0]
 tab2 = handles_list[1]
 
-driver.switch_to_window(tab2)
+driver.switch_to.window(tab2)
 
 driver.get("https://hidemy.name/ru/proxy-checker/")
 pass
