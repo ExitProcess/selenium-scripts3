@@ -17,6 +17,7 @@ driver.get("http://spys.one/proxies/")
 
 # подготовка второй вкладки
 # ctrl + лкм по любому элементу
+# (ctrl + T не работает, проблема описана в test_ctrl_t.py)
 temp_elem = driver.find_element_by_link_text("SPYS.ONE © 2008-2018")
 ActionChains(driver).key_down(Keys.LEFT_CONTROL).click(temp_elem).key_up(Keys.LEFT_CONTROL).perform()
 
