@@ -28,6 +28,7 @@ hide_tab = handles_list[1]
 # переключение на вторую вкладку, переход на hidemy, возврат на spys.one
 driver.switch_to.window(hide_tab)
 driver.get("https://hidemy.name/ru/proxy-checker/")
+form = driver.find_element_by_id("f_in")
 driver.switch_to.window(spys_tab)
 
 # сортировка по SOCKS5
@@ -43,8 +44,8 @@ select.Select(sort_all).select_by_value("5")
 # теперь парсим строки, выбираем сервера со 100% аптаймом
 # если аптайм сервака == 100%, то выводим на печать ip:port, страну, аптайм сервака + (количество проверок)
 # "//tbody/tr[4]" - "//tbody/tr[503]" -- столько всего строк
-###### proxy_list = []
-for str_count in range(4, 100): # 503
+
+for str_count in range(4, 503):
     # локатор аптайма
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
     percent_elem = driver.find_element_by_xpath(percents_xpath)
@@ -61,23 +62,13 @@ for str_count in range(4, 100): # 503
 
         print(ip_port_clear[index + 1:], country_elem.text, percent_elem.text)
 
-        #### формируем список, который потом будет загружен на чекер hidemy.name/ru/proxy-checker/
-        ####proxy_list.append(ip_port_clear[index + 1:])
-        # открыть новую вкладку
+        # переключение на hidemy и передача ip:host туда
 
         driver.switch_to.window(hide_tab)
-        form = driver.find_element_by_id("f_in")
         form.send_keys(ip_port_clear[index + 1:])
         form.send_keys(Keys.RETURN)
         driver.switch_to.window(spys_tab)
 
-# открываем чекер hidemy.name/ru/proxy-checker/
-#driver.get("https://hidemy.name/ru/proxy-checker/")
-#form = driver.find_element_by_id("f_in")
-
-####for i in proxy_list:
-    ##form.send_keys(i)
-    ###form.send_keys(Keys.RETURN)
 
 driver.switch_to.window(hide_tab)
 check = driver.find_element_by_id("chkb1")
