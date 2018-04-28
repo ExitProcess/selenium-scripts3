@@ -2,7 +2,7 @@ import time
 
 start_time = time.time()
 
-for str_count in range(1, 1000000):
+for str_count in range(1, 10000000):
     # локатор аптайма
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
     print(percents_xpath)
@@ -19,4 +19,7 @@ print("%s seconds" % (time.time() - start_time))
 #             42 LOAD_CONST               5 (']/td[8]')
 #             44 BINARY_ADD
 #             46 STORE_NAME               5 (percents_xpath)
+#
+# for str_count in range(1, 10000000):
+# 59.73141646385193 seconds
 #
