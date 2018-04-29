@@ -42,7 +42,7 @@ def submit():
 
 country = "any"
 
-while country != "close":
+while country != "Close":
     # можно со строчной, можно не полностью, например, "герм", "латв", "папуа" и т.д.
     country = input("страна: ")
     proxy_prot = input("тип прокси: все = 0, http = 1, https = 2, Socks 4/5 = 3, Socks 4 = 4, Socks 5 = 5: ")
