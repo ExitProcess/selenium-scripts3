@@ -62,7 +62,8 @@ while country != "close":
             proxy_select(proxy_prot)
             submit()
 
-
+driver.close()
+driver.quit()
 # ограничения/баги:
 # 1) не работают ЮАР и США
 # 2) тип прокси должны быть от 0 до 6, исключение при любом другом значении
