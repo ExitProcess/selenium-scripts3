@@ -28,7 +28,19 @@ for i in elements_list:
         country_list.append(i.text)
 print(country_list)
 
-country = ""
+def proxy_select(proxy_prot):
+    proxy_type = driver.find_element_by_id("frmsearchFilter-protocol-" + str(proxy_prot))
+    proxy_type.click()
+
+def country_select(i):
+    country_filter = driver.find_element_by_id("frmsearchFilter-country")
+    select.Select(country_filter).select_by_visible_text(i)
+
+def submit():
+    submit_button = driver.find_element_by_id("frmsearchFilter-send")
+    submit_button.click()
+
+country = "any"
 
 while country != "close":
     # можно со строчной, можно не полностью, например, "герм", "латв", "папуа" и т.д.
@@ -36,30 +48,21 @@ while country != "close":
     proxy_prot = input("тип прокси: все = 0, http = 1, https = 2, Socks 4/5 = 3, Socks 4 = 4, Socks 5 = 5: ")
     # австралия ->> Австралия
     country = country.capitalize()  # -> Bool
-
     if country:
         for i in country_list:
             if i.startswith(country) and proxy_prot:
-                proxy_type = driver.find_element_by_id("frmsearchFilter-protocol-" + str(proxy_prot))
-                proxy_type.click()
-                country_filter = driver.find_element_by_id("frmsearchFilter-country")
-                submit_button = driver.find_element_by_id("frmsearchFilter-send")
-                select.Select(country_filter).select_by_visible_text(i)
-                submit_button.click()
+                proxy_select(proxy_prot)
+                country_select(i)
+                submit()
             elif i.startswith(country):
-                country_filter = driver.find_element_by_id("frmsearchFilter-country")
-                submit_button = driver.find_element_by_id("frmsearchFilter-send")
-                select.Select(country_filter).select_by_visible_text(i)
-                submit_button.click()
+                country_select(i)
+                submit()
     elif not country:
         if proxy_prot:
-            proxy_type = driver.find_element_by_id("frmsearchFilter-protocol-" + str(proxy_prot))
-            proxy_type.click()
-            submit_button = driver.find_element_by_id("frmsearchFilter-send")
-            submit_button.click()
+            proxy_select(proxy_prot)
+            submit()
+
 
 # ограничения/баги:
 # 1) не работают ЮАР и США
 # 2) тип прокси должны быть от 0 до 6, исключение при любом другом значении
-# 3) обязательно надо ввести какое-нибудь значение для страны
-#
