@@ -22,8 +22,8 @@ elements_list = driver.find_elements_by_css_selector("[value]")
 country_list = []
 for i in elements_list:
     # элементы стран имеют тег "option" (в первом списке также есть элементы с тегом "input" (radio))
-    # if i.tag_name == "option":
-    # у radio строка text пустая, поэтому условие такое:
+    # if i.tag_name == "option":, или другой вариант:
+    # у radio строка text пустая, поэтому условие может быть таким:
     if i.text:
         country_list.append(i.text)
 print(country_list)
@@ -31,14 +31,35 @@ print(country_list)
 country = ""
 
 while country != "close":
-    country = input("страна:")
+    # можно со строчной, можно не полностью, например, "герм", "латв", "папуа" и т.д.
+    country = input("страна: ")
+    proxy_prot = input("тип прокси: все = 0, http = 1, https = 2, Socks 4/5 = 3, Socks 4 = 4, Socks 5 = 5: ")
     # австралия ->> Австралия
-    country = country.capitalize()
+    country = country.capitalize()  # -> Bool
 
-    for i in country_list:
-        if i.startswith(country):
-            country_filter = driver.find_element_by_id("frmsearchFilter-country")
+    if country:
+        for i in country_list:
+            if i.startswith(country) and proxy_prot:
+                proxy_type = driver.find_element_by_id("frmsearchFilter-protocol-" + str(proxy_prot))
+                proxy_type.click()
+                country_filter = driver.find_element_by_id("frmsearchFilter-country")
+                submit_button = driver.find_element_by_id("frmsearchFilter-send")
+                select.Select(country_filter).select_by_visible_text(i)
+                submit_button.click()
+            elif i.startswith(country):
+                country_filter = driver.find_element_by_id("frmsearchFilter-country")
+                submit_button = driver.find_element_by_id("frmsearchFilter-send")
+                select.Select(country_filter).select_by_visible_text(i)
+                submit_button.click()
+    elif not country:
+        if proxy_prot:
+            proxy_type = driver.find_element_by_id("frmsearchFilter-protocol-" + str(proxy_prot))
+            proxy_type.click()
             submit_button = driver.find_element_by_id("frmsearchFilter-send")
-            select.Select(country_filter).select_by_visible_text(i)
             submit_button.click()
-            break
+
+# ограничения/баги:
+# 1) не работают ЮАР и США
+# 2) тип прокси должны быть от 0 до 6, исключение при любом другом значении
+# 3) обязательно надо ввести какое-нибудь значение для страны
+#
