@@ -28,22 +28,13 @@ source = driver.page_source
 tree = html.fromstring(source)
 
 percents = tree.xpath("//tr/td[8]")
-del percents[0]
-del percents[0]
-del percents[-1]
 
 ip_ports = tree.xpath("//td/table/tbody/tr/td[1]")
-del ip_ports[0]
-del ip_ports[0]
-del ip_ports[-1]
 
 countries = tree.xpath("//tr/td[5]")
-del countries[0]
-del countries[0]
-del countries[-1]
 
-i = -1
-for percent in percents:
+i = 1
+for percent in percents[2:-1]:
     i += 1
     percent = percent.text_content()
     if percent[0:3] == "100":
