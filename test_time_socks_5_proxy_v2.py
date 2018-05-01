@@ -8,6 +8,8 @@ from selenium import webdriver
 from selenium.webdriver.support import select
 from lxml import html
 
+all_time = time.time()
+
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
 driver.get("http://spys.one/proxies/")
@@ -41,7 +43,7 @@ del countries[0]
 del countries[-1]
 
 i = -1
-start_time = time.time()
+analize_print_time = time.time()
 for percent in percents:
     i += 1
     percent = percent.text_content()
@@ -61,10 +63,16 @@ for percent in percents:
 
         print(ip + host, country, percent)
 
-print("%s seconds" % (time.time() - start_time))
+print("Анализ и печать -- %s seconds" % (time.time() - analize_print_time))
+print("Работа скрипта -- %s seconds" % (time.time() - all_time))
 driver.close()
 driver.quit()
 
-# 0.005000591278076172 seconds
-# 0.005000114440917969 seconds
-# 0.004000186920166016 seconds
+# Анализ и печать -- 0.004000186920166016 seconds
+# Работа скрипта -- 11.883679628372192 seconds
+#
+# Анализ и печать -- 0.003999948501586914 seconds
+# Работа скрипта -- 11.345648765563965 seconds
+#
+# Анализ и печать -- 0.004000186920166016 seconds
+# Работа скрипта -- 13.487771272659302 seconds
