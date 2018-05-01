@@ -36,9 +36,9 @@ ip_ports = tree.xpath("//td/table/tbody/tr/td[1]")
 
 countries = tree.xpath("//tr/td[5]")
 
-i = -1
+i = 1
 analize_print_time = time.time()
-for percent in percents:
+for percent in percents[2:-1]:
     i += 1
     percent = percent.text_content()
     if percent[0:3] == "100":
