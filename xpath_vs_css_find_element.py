@@ -34,7 +34,7 @@ count_css = 0
 
 for i in range(4, 502):
     percent = driver.find_element_by_css_selector(spy1x + str(i) + percent_pos)
-    if percent.text[0:3] == "100":
+    if "100" in percent.text:
         ip_port = driver.find_element_by_css_selector(spy1x + str(i) + ip_port_pos)
         country = driver.find_element_by_css_selector(spy1x + str(i) + country_pos)
         ip_port = ip_port.text
@@ -69,7 +69,7 @@ count_xpath = 0
 
 for i in range(4, 502):
     percent = driver.find_element_by_xpath(xpath_start + str(i) + percent_pos)
-    if percent.text[0:3] == "100":
+    if "100" in percent.text:
         ip_port = driver.find_element_by_xpath(xpath_start + str(i) + ip_port_pos)
         country = driver.find_element_by_xpath(xpath_start + str(i) + country_pos)
         ip_port = ip_port.text
@@ -79,6 +79,8 @@ for i in range(4, 502):
 
 xpath_loop = time.time() - xpath_loop
 xpath = time.time() - xpath
+
+print("#"*60)
 
 print("найдено серверов перебором CSS: %s" % count_css)
 print("найдено серверов перебором XPATH: %s" % count_xpath)
