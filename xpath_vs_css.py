@@ -81,11 +81,11 @@ xpath = time.time() - xpath
 print("найдено серверов перебором CSS: %s" % count_css)
 print("найдено серверов перебором XPATH: %s" % count_xpath)
 
-print("CSS анализ и вывод -- %s sec" % css_loop)
-print("CSS общее время -- %s sec" % css)
+print("CSS: поиск элементов, анализ и вывод -- %s sec" % css_loop)
+print("CSS: время выполнения -- %s sec" % css)
 
-print("XPATH анализ и вывод -- %s sec" % xpath_loop)
-print("XPATH общее время -- %s sec" % xpath)
+print("XPATH: поиск элементов, анализ и вывод -- %s sec" % xpath_loop)
+print("XPATH: время выполнения -- %s sec" % xpath)
 
 if css_loop < xpath_loop:
     print("перебор элементов по CSS быстрее XPATH на %s sec" % (xpath_loop - css_loop))
