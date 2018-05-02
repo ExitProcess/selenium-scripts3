@@ -12,7 +12,7 @@ from selenium.webdriver.support import select
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
 
-all_css_time = time.time()
+css = time.time()
 
 driver.get("http://spys.one/proxies/")
 
@@ -29,23 +29,25 @@ percent_pos = ') [colspan="1"]:nth-of-type(8)'
 ip_host_pos = ') [colspan="1"]:nth-of-type(1)'
 country_pos = ') [colspan="2"]'
 
-css_analize_time = time.time()
 count_css = 0
+css_loop = time.time()
 
 for i in range(4, 502):
-        percent = driver.find_element_by_css_selector(spy1x + str(i) + percent_pos) # :nth-of-type(4) :nth-of-type(8)
-        if percent.text[0:3] == "100":
-            ip_host = driver.find_element_by_css_selector(spy1x + str(i) + ip_host_pos)
-            country = driver.find_element_by_css_selector(spy1x + str(i) + country_pos)
-            ip_host = ip_host.text
-            index = ip_host.find(' ')
-            print(ip_host[index+1:], country.text, percent.text)
-            count_css += 1
+    percent = driver.find_element_by_css_selector(spy1x + str(i) + percent_pos)
+    if percent.text[0:3] == "100":
+        ip_host = driver.find_element_by_css_selector(spy1x + str(i) + ip_host_pos)
+        country = driver.find_element_by_css_selector(spy1x + str(i) + country_pos)
+        ip_host = ip_host.text
+        index = ip_host.find(' ')
+        print(ip_host[index + 1:], country.text, percent.text)
+        count_css += 1
 
-print("CSS анализ и вывод -- %s seconds" % (time.time() - css_analize_time))
-print("CSS общее время -- %s seconds" % (time.time() - all_css_time))
+css_loop = time.time() - css_loop
+print("CSS анализ и вывод -- %s seconds" % css_loop)
+css = time.time() - css
+print("CSS общее время -- %s seconds" % css)
 
-all_xpath_time = time.time()
+xpath = time.time()
 
 driver.get("http://spys.one/proxies/")
 
@@ -58,7 +60,7 @@ sort_all.click()
 select.Select(sort_all).select_by_value("5")
 
 count_xpath = 0
-xpath_analize_time = time.time()
+xpath_loop = time.time()
 
 for str_count in range(4, 502):
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
@@ -76,11 +78,13 @@ for str_count in range(4, 502):
         print(ip_port_clear[index + 1:], country_elem.text, percent_elem.text)
         count_xpath += 1
 
-print("найдено серверов перебором CSS: ", count_css)
-print("найдено серверов перебором XPATH: ", count_xpath)
+print("найдено серверов перебором CSS: %s" % count_css)
+print("найдено серверов перебором XPATH: %s" % count_xpath)
 
-print("XPATH анализ и вывод -- %s seconds" % (time.time() - xpath_analize_time))
-print("XPATH общее время -- %s seconds" % (time.time() - all_xpath_time))
+xpath_loop = time.time() - xpath_loop
+print("XPATH анализ и вывод -- %s seconds" % xpath_loop)
+xpath = time.time() - xpath
+print("XPATH общее время -- %s seconds" % xpath)
 
 driver.close()
 driver.quit()
