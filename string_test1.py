@@ -13,13 +13,13 @@ print("%s seconds" % (time.time() - start_time))
 #
 #    7        32 LOAD_CONST               4 ('//tr[')
 #             34 LOAD_NAME                4 (str)
-#             36 LOAD_NAME                3 (str_count)
+#             36 LOAD_NAME                3 (i)
 #             38 CALL_FUNCTION            1
 #             40 BINARY_ADD
 #             42 LOAD_CONST               5 (']/td[8]')
 #             44 BINARY_ADD
 #             46 STORE_NAME               5 (percents_xpath)
 #
-# for str_count in range(1, 10000000):
+# for i in range(1, 10000000):
 # 59.73141646385193 seconds
 #
