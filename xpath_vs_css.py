@@ -45,6 +45,8 @@ for i in range(4, 502):
 css_loop = time.time() - css_loop
 css = time.time() - css
 
+print("##############################################################")
+
 xpath = time.time()
 
 driver.get("http://spys.one/proxies/")
