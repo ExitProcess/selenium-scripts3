@@ -36,7 +36,7 @@ del country_list[0]
 del country_list[0]
 
 for percent in percent_list:
-    if percent.text[0:3] == "100":
+    if "100" in percent.text:
         ip_port = ip_port_list[i].text
         index = ip_port.find(" ")
         print(ip_port[index+1:], country_list[i].text, percent.text)
@@ -78,7 +78,7 @@ del ip_port_list[0]
 del ip_port_list[-1]
 
 for percent in percent_list:
-    if percent.text[0:3] == "100":
+    if "100" in percent.text:
         ip_port = ip_port_list[i].text
         index = ip_port.find(" ")
         print(ip_port[index+1:], country_list[i].text, percent.text)
