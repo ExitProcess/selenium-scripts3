@@ -37,7 +37,7 @@ i = 1
 for percent in percents[2:-1]:
     i += 1
     percent = percent.text_content()
-    if percent[0:3] == "100":
+    if "100" in percent:
         country = countries[i].text_content()
         ip_port = ip_ports[i].text_content()
 
