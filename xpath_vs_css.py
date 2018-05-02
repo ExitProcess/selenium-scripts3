@@ -43,9 +43,7 @@ for i in range(4, 502):
         count_css += 1
 
 css_loop = time.time() - css_loop
-print("CSS анализ и вывод -- %s seconds" % css_loop)
 css = time.time() - css
-print("CSS общее время -- %s seconds" % css)
 
 xpath = time.time()
 
@@ -78,12 +76,16 @@ for str_count in range(4, 502):
         print(ip_port_clear[index + 1:], country_elem.text, percent_elem.text)
         count_xpath += 1
 
+xpath_loop = time.time() - xpath_loop
+xpath = time.time() - xpath
+
 print("найдено серверов перебором CSS: %s" % count_css)
 print("найдено серверов перебором XPATH: %s" % count_xpath)
 
-xpath_loop = time.time() - xpath_loop
+print("CSS анализ и вывод -- %s seconds" % css_loop)
+print("CSS общее время -- %s seconds" % css)
+
 print("XPATH анализ и вывод -- %s seconds" % xpath_loop)
-xpath = time.time() - xpath
 print("XPATH общее время -- %s seconds" % xpath)
 
 driver.close()
