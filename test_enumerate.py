@@ -2,7 +2,7 @@
 
 import time
 
-elements = ["100% (70000000000000000000000000000000000000) +" for i in range(1, 50000000)]
+elements = ["100% (70000000000000000000000000000000000000) +" for i in range(0, 50000000)]
 
 for_in = time.time()
 count = 0
