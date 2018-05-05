@@ -23,3 +23,8 @@ for num in num_list:
 
 execute_time = time.time() - execute_time
 print(execute_time)
+
+driver.close()
+driver.quit()
+
+# 272.20756936073303
