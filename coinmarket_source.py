@@ -15,17 +15,17 @@ execute_time = time.time()
 source = driver.page_source
 tree = html.fromstring(source)
 
-num_list = tree.xpath("//tr/td[1]") # \n1\n
+num_list = tree.xpath("//tr/td[1]")  # \n1\n
 name_list = tree.xpath("//tr/td[2]")
-# symbol_list = tree.xpath("//tr/td[3]") # ADA
-mcap_list = tree.xpath("//tr/td[4]") # '$9 649 627 724'
+# symbol_list = tree.xpath("//tr/td[3]")  # ADA
+mcap_list = tree.xpath("//tr/td[4]")  # '$9 649 627 724'
 
 index = 0
 for num in num_list:
-    num = num.text[1:-1] # \n1\n -->> 1
+    num = num.text[1:-1]  # \n1\n -->> 1
 
-    name_str = name_list[index].text_content() # \n\nXRP\nRiple\n
-    name_str = name_str.strip("\n") # XRP\nRiple
+    name_str = name_list[index].text_content()  # \n\nXRP\nRiple\n
+    name_str = name_str.strip("\n")  # XRP\nRiple
     str_divide = name_str.find('\n')
 
     name = name_str[str_divide+1:]
@@ -38,3 +38,8 @@ for num in num_list:
 
 execute_time = time.time() - execute_time
 print(execute_time)
+
+driver.close()
+driver.quit()
+
+# 0.5940341949462891
