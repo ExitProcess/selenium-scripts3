@@ -1,3 +1,6 @@
+# скрипт для сравнения скорости find_elements_by_xpath, т.е. через запросы к браузеру,
+# против работы с исходным кодом страницы, загруженным в оперативную память (coinmarket_source.py)
+
 import time
 from selenium import webdriver
 
