@@ -24,27 +24,29 @@ mcap_list = tree.xpath("//tr/td[4]")  # '$9 649 627 724'
 # 95% строк имеют вид '\n\nXRP\nRiple\n', но попадаются строки '\n \nXRP\nRiple\n', или ' \n\nXRP\nRiple\n',
 # а также '\n\nXRP\nRiple\n ', где срез не срабатывает как надо, соот-но ломается форматирование.
 # такие строки дополнительно обрабатывает цикл.
-y = ""
-def string_format(x):
-    global y
-    while "\n" in x[0] or " " in x[0]:
-        x = x[1:]
-    while "\n" in x[-1] or " " in x[-1]:
-        x = x[:-1]
-    y = x
 
 
+def string_format(list_str):
+    global temp_str
+    while "\n" in list_str[0] or " " in list_str[0]:
+        list_str = list_str[1:]
+    while "\n" in list_str[-1] or " " in list_str[-1]:
+        list_str = list_str[:-1]
+    temp_str = list_str
+
+
+temp_str = ""
 index = 0
 for num in num_list:
     num = num.text[1:-1]  # \n1\n -->> 1
     string_format(num)
-    num = y
+    num = temp_str
 
     name_str = name_list[index].text_content()  # '\n\nXRP\nRiple\n'
     name_str = name_str[2:-1]  # '\n\nXRP\nRiple\n' -->> 'XRP\nRiple'
     # можно использовать name_str = name_str.strip("\n"), но срезы работают быстрее
     string_format(name_str)
-    name_str = y
+    name_str = temp_str
 
     str_divide = name_str.find('\n')
     name = name_str[str_divide+1:]
