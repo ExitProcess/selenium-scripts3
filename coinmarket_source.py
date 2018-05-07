@@ -24,8 +24,22 @@ index = 0
 for num in num_list:
     num = num.text[1:-1]  # \n1\n -->> 1
 
-    name_str = name_list[index].text_content()  # \n\nXRP\nRiple\n
-    name_str = name_str.strip("\n")  # XRP\nRiple
+    while "\n" in num[0] or " " in num[0]:
+        num = num[1:]
+    while "\n" in num[-1] or " " in num[-1]:
+        num = num[:-1]
+
+    name_str = name_list[index].text_content()  # '\n\nXRP\nRiple\n'
+
+    name_str = name_str[2:-1]  # '\n\nXRP\nRiple\n' -->> 'XRP\nRiple'
+    # можно использовать name_str = name_str.strip("\n"), но срезы работают быстрее
+    # таких строк 95%, но попадаются строки вида '\n \nRNT\nOneRoot Network\n', или ' \n\nRNT\nOneRoot Network\n',
+    # а также '\n\nRNT\nOneRoot Network\n ', где срез не работает, соот-но ломается форматирование.
+    # такие строки дополнительно обрабатывает цикл.
+    while "\n" in name_str[0] or " " in name_str[0]:
+        name_str = name_str[1:]
+    while "\n" in name_str[-1] or " " in name_str[-1]:
+        name_str = name_str[:-1]
     str_divide = name_str.find('\n')
 
     name = name_str[str_divide+1:]
@@ -42,4 +56,4 @@ print(execute_time)
 driver.close()
 driver.quit()
 
-# 0.5940341949462891
+# 0.5550317764282227
