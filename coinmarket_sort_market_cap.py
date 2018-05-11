@@ -16,12 +16,10 @@ list_mc = driver.find_elements_by_css_selector(".market-cap")
 del list_mc[-1]
 
 
-for i in range(0, len(list_mc)):
+for i in range(0, len(list_mc)-1):
     if list_mc[i].text > list_mc[i + 1].text:
         print(list_mc[i].text, "больше", list_mc[i + 1].text)
-    if len(list_mc[i].text) > len(list_mc[i + 1].text):
-        print(list_mc[i].text, "последний элемент с известной стоимостью")
+    if list_mc[i].text == "$?" and len(list_mc[i-1].text) > 2:
+        print(list_mc[i-1].text, "последний элемент с известной стоимостью")
     if list_mc[i].text == "$?":
         print(list_mc[i].text, "стоимость неизвестна")
-
-
