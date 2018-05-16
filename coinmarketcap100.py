@@ -35,7 +35,7 @@ print(count)
 
 # если 100 элементов расположены в списке по убыванию, то сортировка по убыванию работает
 if count == 100:
-    print("сортировка по убыванию работает")
+    print("сортировка market cap по убыванию работает")
 
 # сортировка по возрастанию
 sort_button = driver.find_element_by_id("th-marketcap")
@@ -49,7 +49,7 @@ del list_mcap_elements_inc[-1]
 # проще и быстрее перевернуть список и сравнить его с первым списком
 list_mcap_elements_inc.reverse()
 if list_mcap_elements_inc == list_mcap_elements_dec:
-    print("сортировка по возрастанию работает")
+    print("сортировка market cap по возрастанию работает")
 
 driver.close()
 driver.quit()
