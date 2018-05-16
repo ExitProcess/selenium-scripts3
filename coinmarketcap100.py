@@ -14,7 +14,7 @@ del list_mcap_elements_dec[-1]
 
 # цикл проверяет, чтобы следующий элемент списка был меньше предыдущего
 count = 0
-for i in range(0, len(list_mcap_elements_dec) - 1): # последний элемент списка надо выводить отдельно
+for i in range(0, len(list_mcap_elements_dec) - 1):  # последний элемент списка надо выводить отдельно
     elem_current = list_mcap_elements_dec[i].text
     elem_next = list_mcap_elements_dec[i + 1].text
     elem_prev = list_mcap_elements_dec[i - 1].text
@@ -27,7 +27,7 @@ for i in range(0, len(list_mcap_elements_dec) - 1): # последний эле�
         count += 1
         print(elem_current)
 elem_last = list_mcap_elements_dec[-1].text
-if elem_last < elem_current:
+if elem_last < elem_current or len(elem_last) < len(elem_current):
     print(elem_last)
     count += 1
 
