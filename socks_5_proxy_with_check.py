@@ -1,9 +1,12 @@
-# парсилка SOCKS5 для телеграма
-# источник http://spys.one/
-# выбирает только сервера со 100% аптаймом
+# дополненная версия скрипта socks_5_proxy.py
+# на первой стадии работает точно также: собирает socks5 с лучшим аптаймом с сайта spys.one
+# после формирования списка прокси, скрипт идет на hidemy.name/ru/proxy-checker/
+# список загружается в чекер, после чего начинается проверка
+# таким образом, пользователь может выбрать прокси, доступный в данный момент
 
 from selenium import webdriver
 from selenium.webdriver.support import select
+from selenium.webdriver.common.keys import Keys
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -22,6 +25,7 @@ select.Select(sort_all).select_by_value("5")
 # теперь парсим строки, выбираем сервера со 100% аптаймом
 # если аптайм сервака == 100%, то выводим на печать ip:port, страну, аптайм сервака + (количество проверок)
 # "//tbody/tr[4]" - "//tbody/tr[503]" -- столько всего строк
+proxy_list = []
 for str_count in range(4, 503):
     # локатор аптайма
     percents_xpath = "//tr[" + str(str_count) + "]/td[8]"
@@ -39,5 +43,16 @@ for str_count in range(4, 503):
 
         print(ip_port_clear[index + 1:], country_elem.text, percent_elem.text)
 
-driver.close()
-driver.quit()
+        # формируем список, который потом будет загружен на чекер hidemy.name/ru/proxy-checker/
+        proxy_list.append(ip_port_clear[index + 1:])
+
+# открываем чекер hidemy.name/ru/proxy-checker/
+driver.get("https://hidemy.name/ru/proxy-checker/")
+form = driver.find_element_by_id("f_in")
+
+for i in proxy_list:
+    form.send_keys(i)
+    form.send_keys(Keys.RETURN)
+
+check = driver.find_element_by_id("chkb1")
+check.click()
