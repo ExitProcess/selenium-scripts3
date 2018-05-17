@@ -7,7 +7,7 @@ class CoinMarketCapSort(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome('C:\SeleniumDrivers\Chrome\chromedriver.exe')
 
-    def test_market_cap_sort(self):
+    def test_market_cap_sort_dec(self):
         driver = self.driver
         driver.get("https://coinmarketcap.com")
         sort_button = driver.find_element_by_id("th-marketcap")
@@ -29,8 +29,8 @@ class CoinMarketCapSort(unittest.TestCase):
         elem_last = list_mcap_elements_dec[-1].text
         if elem_last < elem_current or len(elem_last) < len(elem_current):
             count += 1
-
-        print(count)
+        # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке убывания
+        assert count == 100
 
     def tearDown(self):
         self.driver.close()
