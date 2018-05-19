@@ -5,6 +5,7 @@ from selenium import webdriver
 class CoinMarketCapSort(unittest.TestCase):
 
     def setUp(self):
+        # метод setUp запускается перед каждым методом теста
         self.driver = webdriver.Chrome('C:\SeleniumDrivers\Chrome\chromedriver.exe')
 
     def test_market_cap_sort_dec(self):
