@@ -29,6 +29,7 @@ class CoinMarketCapSort(unittest.TestCase):
             count += 1
         # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке убывания
         assert count == 100
+        print("сортировка по убыванию -- ОК")
 
     def test_market_cap_sort_inc(self):
         self.sort_button.click()
@@ -49,6 +50,7 @@ class CoinMarketCapSort(unittest.TestCase):
             count += 1
         # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке возрастания
         assert count == 100
+        print("сортировка по возрастанию -- ОК")
 
     def tearDown(self):
         self.driver.close()
