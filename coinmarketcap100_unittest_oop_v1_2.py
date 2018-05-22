@@ -7,6 +7,7 @@ from selenium import webdriver
 
 
 class CoinMarketCapSort(unittest.TestCase):
+    # тут сохраняется текст элементов, список из первого метода (по убыванию)
     list_mcap_elements_dec_text = []
 
     def setUp(self):
@@ -34,6 +35,8 @@ class CoinMarketCapSort(unittest.TestCase):
             count += 1
         # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке убывания
         assert count == 100
+        # если сортировка по убыванию работает правильно, то создается переменная класса list_mcap_elements_dec_text
+        # в списке хранится текст каждого элемента (можно добавлять и после каждой проверки, но так понятнее)
         for element in list_mcap_elements_dec:
             CoinMarketCapSort.list_mcap_elements_dec_text.append(element.text)
 
@@ -42,19 +45,15 @@ class CoinMarketCapSort(unittest.TestCase):
         # список элементов, отсортированных по возрастанию
         list_mcap_elements_inc = self.driver.find_elements_by_css_selector(".market-cap")
         del list_mcap_elements_inc[-1]
+        # список элементов по возрастанию ->> список элементов по убыванию
         list_mcap_elements_inc.reverse()
-        list_mcap_elements_inc_text = []
+        # текст этих элементов
+        list_mcap_elements_inc_reverse_text = []
 
         for element in list_mcap_elements_inc:
-            list_mcap_elements_inc_text.append(element.text)
+            list_mcap_elements_inc_reverse_text.append(element.text)
 
-        # отладочный вывод
-        for elem in list_mcap_elements_inc_text:
-            print(elem)
-        for elem in CoinMarketCapSort.list_mcap_elements_dec_text:
-            print(elem)
-
-        assert CoinMarketCapSort.list_mcap_elements_dec_text == list_mcap_elements_inc_text
+        assert CoinMarketCapSort.list_mcap_elements_dec_text == list_mcap_elements_inc_reverse_text
 
     def tearDown(self):
         self.driver.close()
