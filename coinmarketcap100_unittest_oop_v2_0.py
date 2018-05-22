@@ -2,7 +2,7 @@
 # метод. таким образом, используются 3 метода, каждый из которых используется по 1 разу, в отличие от прошлых версий,
 # в которых было 4 метода, setUp и tearDown использовались по 2 раза, и test_inc / test_dec по разу.
 # старые версии -- Ran 2 tests in 43.017s
-# эта версия --
+# эта версия -- Ran 1 test in 13.598s -- Ran 1 test in 21.855s
 
 import unittest
 from selenium import webdriver
@@ -17,7 +17,7 @@ class CoinMarketCapSort(unittest.TestCase):
         self.sort_button = self.driver.find_element_by_id("th-marketcap")
         self.sort_button.click()
 
-    def test_market_cap_sort_dec(self):
+    def test_market_cap_sort(self):
         # список элементов, отсортированных по убыванию
         list_mcap_elements_dec = self.driver.find_elements_by_css_selector(".market-cap")
         del list_mcap_elements_dec[-1]
