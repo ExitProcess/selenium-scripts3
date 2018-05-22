@@ -35,6 +35,7 @@ class CoinMarketCapSort(unittest.TestCase):
             count += 1
         # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке убывания
         assert count == 100
+        print("сортировка по убыванию -- ОК")
         # если сортировка по убыванию работает правильно, то создается переменная класса list_mcap_elements_dec_text
         # в списке хранится текст каждого элемента (можно добавлять и после каждой проверки, но так понятнее)
         for element in list_mcap_elements_dec:
@@ -54,6 +55,7 @@ class CoinMarketCapSort(unittest.TestCase):
             list_mcap_elements_inc_reverse_text.append(element.text)
 
         assert CoinMarketCapSort.list_mcap_elements_dec_text == list_mcap_elements_inc_reverse_text
+        print("сортировка по возрастанию -- ОК")
 
     def tearDown(self):
         self.driver.close()
