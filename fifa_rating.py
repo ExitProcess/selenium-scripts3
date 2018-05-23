@@ -50,3 +50,6 @@ for country in countries_list:
 
     driver.close()
     driver.switch_to.window(countries_page)
+
+driver.close()
+driver.quit()
