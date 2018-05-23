@@ -7,14 +7,13 @@ class CoinMarketCapSort(unittest.TestCase):
     def setUp(self):
         # метод setUp запускается перед каждым методом теста
         self.driver = webdriver.Chrome('C:\SeleniumDrivers\Chrome\chromedriver.exe')
+        self.driver.get("https://coinmarketcap.com")
+        self.sort_button = self.driver.find_element_by_id("th-marketcap")
+        self.sort_button.click()
 
     def test_market_cap_sort_dec(self):
-        driver = self.driver
-        driver.get("https://coinmarketcap.com")
-        sort_button = driver.find_element_by_id("th-marketcap")
-        sort_button.click()
         # список элементов, отсортированных по убыванию
-        list_mcap_elements_dec = driver.find_elements_by_css_selector(".market-cap")
+        list_mcap_elements_dec = self.driver.find_elements_by_css_selector(".market-cap")
         del list_mcap_elements_dec[-1]
 
         # цикл проверяет, чтобы следующий элемент списка был меньше предыдущего
@@ -30,15 +29,12 @@ class CoinMarketCapSort(unittest.TestCase):
             count += 1
         # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке убывания
         assert count == 100
+        print("сортировка по убыванию -- ОК")
 
     def test_market_cap_sort_inc(self):
-        driver = self.driver
-        driver.get("https://coinmarketcap.com")
-        sort_button = driver.find_element_by_id("th-marketcap")
-        sort_button.click()
-        sort_button.click()
+        self.sort_button.click()
         # список элементов, отсортированных по возрастанию
-        list_mcap_elements_inc = driver.find_elements_by_css_selector(".market-cap")
+        list_mcap_elements_inc = self.driver.find_elements_by_css_selector(".market-cap")
         del list_mcap_elements_inc[-1]
 
         # цикл проверяет, чтобы следующий элемент списка был больше предыдущего
@@ -54,6 +50,7 @@ class CoinMarketCapSort(unittest.TestCase):
             count += 1
         # проверено 100 элементов, если счетчик == 100, то все элементы расположены в порядке возрастания
         assert count == 100
+        print("сортировка по возрастанию -- ОК")
 
     def tearDown(self):
         self.driver.close()
