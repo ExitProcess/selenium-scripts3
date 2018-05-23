@@ -13,6 +13,7 @@ path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
 driver.get("http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.html")
 
+# вывод сразу всех стран для дальнейшего создания списка
 button_211 = WebDriverWait(driver, 7).until(EC.element_to_be_clickable((By.CSS_SELECTOR,
                                                                 '[title="201-211"] span')))
 ActionChains(driver).move_to_element(button_211).perform()
@@ -25,6 +26,27 @@ ActionChains(driver).click(button_211).perform()
 countries_list = driver.find_elements_by_css_selector(".tbl-teamname [href]")
 for country in countries_list:
     time.sleep(2)
-    ActionChains(driver).move_to_element(country).perform()
-    ActionChains(driver).key_down(Keys.LEFT_CONTROL).click().perform()
-    ActionChains(driver).key_up(Keys.LEFT_CONTROL).perform()
+#   ActionChains(driver).move_to_element(country).perform()
+    # в цикле в новой вкладке открывается персональная страница страны;
+    # непонятно почему, но цикл начинает работать со второго элемента.
+    ActionChains(driver).key_down(Keys.LEFT_CONTROL).click(country).key_up(Keys.LEFT_CONTROL).perform()
+
+    window_handles = driver.window_handles
+    # в связи с тем, что цикл начинает работать со 2-го элемента, проверяется, открыто ли 2 вкладки
+    if len(window_handles) < 2: # если открыта 1 вкладка, то пропустить оставшееся тело цикла и начать новую итерацию
+        continue
+
+    countries_page = window_handles[0]
+    country_personal_page = window_handles[1]
+    driver.switch_to.window(country_personal_page)
+
+    country_name = driver.find_element_by_css_selector(".fdh-text")
+    current = driver.find_element_by_css_selector("li:nth-of-type(1) .data")
+    average = driver.find_element_by_css_selector("li:nth-of-type(2) .data")
+
+    print(country_name.text)
+    print("CURRENT FIFA WORLD RANKING == ", current.text)
+    print("AVERAGE POSITION SINCE FIFA WORLD RANKING CREATION == ", average.text)
+
+    driver.close()
+    driver.switch_to.window(countries_page)
