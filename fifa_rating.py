@@ -1,3 +1,6 @@
+# вывод информации с главной страницы, потом история рейтинга со страниц для каждой страны
+# будут использоваться actionchains, хэндлы и т.д.
+
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -21,7 +24,7 @@ ActionChains(driver).click(button_211).perform()
 
 countries_list = driver.find_elements_by_css_selector(".tbl-teamname [href]")
 for country in countries_list:
-
+    time.sleep(2)
     ActionChains(driver).move_to_element(country).perform()
     ActionChains(driver).key_down(Keys.LEFT_CONTROL).click().perform()
     ActionChains(driver).key_up(Keys.LEFT_CONTROL).perform()
