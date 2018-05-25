@@ -17,14 +17,17 @@ ActionChains(driver).move_to_element(button_211).perform()
 time.sleep(2)
 ActionChains(driver).click(button_211).perform()
 
-# move_to_element - не работает
+# move_to_element - работает, нужен sleep / wait's
 # elem2 = driver.find_element_by_id("rnk_2")
-# elem2 = driver.find_element_by_xpath("//tbody/tr[3]/td[3]/a")
-# ActionChains(driver).move_to_element(elem2).perform()
+elem3 = driver.find_element_by_xpath("//tbody/tr[3]/td[3]/a")
+time.sleep(1)
+ActionChains(driver).move_to_element(elem3).perform()
 
-# перемотка с помощью scrollIntoView
-elem2 = driver.find_element_by_xpath("//tbody/tr[2]/td[3]/a")
-driver.execute_script("arguments[0].scrollIntoView();", elem2)
+# перемотка с помощью scrollIntoView -- работает, нужен sleep / wait's
+elem33 = driver.find_element_by_xpath("//tbody/tr[33]/td[3]/a")
+time.sleep(1)
+driver.execute_script("arguments[0].scrollIntoView();", elem33)
 
+time.sleep(2)
 driver.close()
 driver.quit()
