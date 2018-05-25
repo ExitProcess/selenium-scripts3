@@ -31,3 +31,8 @@ driver.execute_script("arguments[0].scrollIntoView();", elem33)
 time.sleep(2)
 driver.close()
 driver.quit()
+
+#  notes:
+#    driver.execute_script("arguments[0].scrollIntoView();", country_button)
+#    driver.execute_script("return arguments[0].scrollIntoView(true);", xpath)
+#    driver.execute_script("window.scrollBy(0, -150);")

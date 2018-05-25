@@ -19,13 +19,13 @@ ActionChains(driver).move_to_element(button_211).perform()
 time.sleep(2)
 ActionChains(driver).click(button_211).perform()
 
-for i in range(2, 211):
+for i in range(1, 211):
     xpath = "//tbody/tr[" + str(i) + "]/td[3]/a"
 
     country_button = WebDriverWait(driver, 7).until(EC.element_to_be_clickable((By.XPATH, xpath)))
-    time.sleep(1)
+    time.sleep(0.5)
     ActionChains(driver).move_to_element(country_button).perform()
-    time.sleep(1)
+    time.sleep(0.5)
     ActionChains(driver).key_down(Keys.LEFT_CONTROL).click(country_button).key_up(Keys.LEFT_CONTROL).perform()
 
     window_handles = driver.window_handles
