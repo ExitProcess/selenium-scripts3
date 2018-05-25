@@ -24,10 +24,11 @@ ActionChains(driver).click(button_211).perform()
 
 countries_list = driver.find_elements_by_css_selector(".tbl-teamname [href]")
 for country in countries_list:
-    time.sleep(2)
-#   ActionChains(driver).move_to_element(country).perform()
+    time.sleep(0.5)
+    ActionChains(driver).move_to_element(country).perform()
+    time.sleep(0.5)
     # в цикле в новой вкладке открывается персональная страница страны;
-    # непонятно почему, но цикл начинает работать со второго элемента.
+    # теперь открывается с 1-ой команды, т.е. с Германии
     ActionChains(driver).key_down(Keys.LEFT_CONTROL).click(country).key_up(Keys.LEFT_CONTROL).perform()
 
     window_handles = driver.window_handles
