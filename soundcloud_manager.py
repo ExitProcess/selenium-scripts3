@@ -71,7 +71,7 @@ def repeat_none():
         repeat_counter = 0
 
 
-def manager(x):
+def manager(user):
     if user == "previous":
         driver.find_element_by_css_selector(".skipControl__previous").click()
     elif user == "play":
@@ -92,7 +92,8 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-    elif str.isdigit(user) or str.find(user, "-") == 0: # если строка в число==True или строка начинается с "-" (user[0]== -)
+    elif str.isdigit(user) or str.find(user,
+                                       "-") == 0:  # если строка в число==True или строка начинается с "-" (user[0]== -)
         if str.isdigit(user[1:]):  # если строка в число без знака "-" == True (user[1:]==int)
             if -100 <= int(user) <= 100:  # если диапазон от 100 до -100
                 volume = int(user)
