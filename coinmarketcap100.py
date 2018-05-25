@@ -18,7 +18,6 @@ sort_button.click()
 list_mcap_elements_inc = driver.find_elements_by_css_selector(".market-cap")
 del list_mcap_elements_inc[-1]
 
-
 # работа с list_mcap_elements_dec
 # цикл проверяет, чтобы следующий элемент списка был меньше предыдущего
 count = 0
@@ -40,7 +39,6 @@ print(count)
 # если 100 элементов расположены в списке по убыванию, то сортировка по убыванию работает
 assert count == 100
 print("сортировка market cap по убыванию работает")
-
 
 # работа с list_mcap_elements_inc
 # вместо того чтобы проверять каждый элемент списка на возрастание,
