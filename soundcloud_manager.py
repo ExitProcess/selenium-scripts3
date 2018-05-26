@@ -14,13 +14,13 @@ volume (-30, 40) -- громкость (убавить на 30%, прибави�
 
 """
 
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-import time
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -71,7 +71,7 @@ def repeat_none():
         repeat_counter = 0
 
 
-def manager(x):
+def manager():
     if user == "previous":
         driver.find_element_by_css_selector(".skipControl__previous").click()
     elif user == "play":
@@ -92,15 +92,16 @@ def manager(x):
         repeat_all()
     elif user == "repeat none":  # 0
         repeat_none()
-    elif str.isdigit(user) or str.find(user, "-") == 0: # если строка в число==True или строка начинается с "-" (user[0]== -)
-        if str.isdigit(user[1:]):  # если строка в число без знака "-" == True (user[1:]==int)
-            if -100 <= int(user) <= 100:  # если диапазон от 100 до -100
-                volume = int(user)
-                if volume < 0:
-                    volume = -volume
-                    volume_down(volume)
-                else:
-                    volume_up(volume)
+    # если строка-в-число == True or начало строки == "-" (user[0]== "-")
+    elif str.isdigit(user) or str.find(user, "-") == 0:
+        # если строка в число без знака "-" == True (user[1:]==int) and диапазон -100 <= int(user) <= 100:
+        if str.isdigit(user[1:]) and -100 <= int(user) <= 100:
+            volume = int(user)  # строку в целое число
+            if volume < 0:
+                volume = -volume
+                volume_down(volume)
+            else:
+                volume_up(volume)
 
 
 def volume_up(y):
@@ -122,7 +123,7 @@ def volume_down(y):
 user = ""
 while user != "close":
     user = input("запрос: ")
-    manager(user)
+    manager()
 
 driver.close()
 driver.quit()
