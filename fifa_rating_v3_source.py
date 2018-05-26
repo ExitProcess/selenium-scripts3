@@ -4,9 +4,9 @@ import time
 from lxml import html
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -26,9 +26,10 @@ countries_list = tree.xpath("//tbody/tr/td[3]/a")
 for country in countries_list:
     text = country.text_content()
     url = country.get("href")  # '/fifa-world-ranking/associations/association=ger/men/index.html'
+    url = ("http://www.fifa.com" + url)
     print(text, url)
 
-    driver.get("http://www.fifa.com" + url)
+    driver.get(url)
 
     country_name = driver.find_element_by_css_selector(".fdh-text")
     current = driver.find_element_by_css_selector("li:nth-of-type(1) .data")
@@ -37,6 +38,7 @@ for country in countries_list:
     print(country_name.text)
     print("CURRENT FIFA WORLD RANKING == ", current.text)
     print("AVERAGE POSITION SINCE FIFA WORLD RANKING CREATION == ", average.text)
+    print()
 
 driver.close()
 driver.quit()
