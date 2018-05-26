@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
@@ -14,7 +14,7 @@ driver = webdriver.Chrome(path)
 driver.get("http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.html")
 
 # вывод сразу всех стран для дальнейшего создания списка
-button_211 = WebDriverWait(driver, 7).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '[title="201-211"] span')))
+button_211 = WebDriverWait(driver, 7).until(ec.element_to_be_clickable((By.CSS_SELECTOR, '[title="201-211"] span')))
 ActionChains(driver).move_to_element(button_211).perform()
 time.sleep(2)
 ActionChains(driver).click(button_211).perform()
