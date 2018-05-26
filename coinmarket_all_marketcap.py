@@ -7,6 +7,10 @@ path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
 
 driver.get("https://coinmarketcap.com/all/views/all/")
+# закрыть cookie-уведомление
+cookie_close = driver.find_element_by_css_selector(".banner-alert-close [aria-hidden]")
+cookie_close.click()
+
 # сортировка по убыванию
 sort_button = driver.find_element_by_css_selector("#th-marketcap")
 sort_button.click()

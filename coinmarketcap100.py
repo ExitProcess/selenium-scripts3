@@ -3,6 +3,10 @@ from selenium import webdriver
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
 driver.get("https://coinmarketcap.com")
+# закрыть cookie-уведомление
+cookie_close = driver.find_element_by_css_selector(".banner-alert-close [aria-hidden]")
+cookie_close.click()
+
 # элемент сортировки рыночной стоимости
 sort_button = driver.find_element_by_id("th-marketcap")
 
