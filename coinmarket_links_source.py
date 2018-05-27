@@ -1,11 +1,8 @@
 # скрипт парсит веб-страницы криптовалют
 # работает аналогично fifa_rating_3_source.py
 
-import time
 from lxml import html
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -29,3 +26,8 @@ for cryptocurrency in cryptocurrencies_list:
 
 driver.close()
 driver.quit()
+
+# Bitcoin (BTC) https://bitcoin.org/
+# Ethereum (ETH) https://www.ethereum.org/
+# Ripple (XRP) https://ripple.com/
+# ...
