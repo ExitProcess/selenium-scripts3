@@ -36,7 +36,7 @@ for cryptocurrency in cryptocurrencies_list:
     url = cryptocurrency.get("href")  # /currencies/bitcoin/
     url = ("https://coinmarketcap.com" + url)
 
-    if tab == 4:
+    if tab == 5:
         tab = 0
 
     driver.switch_to.window(tabs_handles[tab])
