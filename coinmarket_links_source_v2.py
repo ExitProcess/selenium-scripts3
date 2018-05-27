@@ -1,6 +1,11 @@
 # скрипт парсит веб-страницы криптовалют
 # работает аналогично fifa_rating_3_source.py
-# страницы долго грузятся из-за рекламы, поэтому для оптимизации скрипт одновременно парсит данные с 5 вкладок
+# страницы долго грузятся из-за рекламы, поэтому для оптимизации скрипт одновременно парсит данные с n вкладок
+#
+# алгоритм должен был быть таким: создаются вкладки, потом в каждой открываются страницы валют,
+# причем работа с новой вкладкой начинается сразу же после driver.get, без ожидания полной загрузки страницы
+# на втором и дальнейшем проходах по вкладкам (которые уже должны быть загружены) с них парсятся нужные данные, затем
+# после получения данных, во вкладке открывается новая страница и также без ожидания загрузки происходит переход дальше
 
 from lxml import html
 from selenium import webdriver
@@ -26,33 +31,31 @@ def new_page(n):
         n -= 1
 
 
-new_page(4)
+new_page(9)
 
-# tab1 = tabs_handles[0], tab2 = tabs_handles[1], tab3 = tabs_handles[2], tab4 = tabs_handles[3], tab5 = tabs_handles[4]
-tabs_handles = driver.window_handles
+tabs_handles_temp = driver.window_handles
+tabs_handles = list(tabs_handles_temp)
+del tabs_handles[0]
+tabs_handles.append(tabs_handles_temp.pop(0))
+tabs_handles.reverse()
 
 tab = 0
 for cryptocurrency in cryptocurrencies_list:
     url = cryptocurrency.get("href")  # /currencies/bitcoin/
     url = ("https://coinmarketcap.com" + url)
 
-    if tab == 5:
+    if tab == len(tabs_handles):
         tab = 0
-
     driver.switch_to.window(tabs_handles[tab])
 
-    if "$" in driver.title:
+    driver.get(url)
+    tab += 1
+
+    if "(" in driver.title:
         cryptocurrency_name = driver.find_element_by_css_selector(".text-large")
         site_elem = driver.find_element_by_link_text("Website")
         cryptocurrency_url = site_elem.get_attribute("href")
         print(cryptocurrency_name.text, cryptocurrency_url)
-
-        driver.get(url)
-        tab += 1
-    else:
-        driver.get(url)
-        tab += 1
-
 
 driver.close()
 driver.quit()
