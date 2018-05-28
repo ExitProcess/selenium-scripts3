@@ -1,9 +1,11 @@
+# один из самых первых скриптов. xpath делал через инсрументы разработчика "копировать xpath"
+
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import select
-from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
 driver = webdriver.Chrome(path)
@@ -25,7 +27,7 @@ def search(keys):
 def open_dropdowns(xpath):
     global dropdown, dropdown2
     WebDriverWait(driver, 8).until(
-        EC.element_to_be_clickable((By.XPATH, xpath)))
+        ec.element_to_be_clickable((By.XPATH, xpath)))
     dropdown = dropdown2 = driver.find_element_by_xpath(xpath)
     dropdown.click()
 
@@ -35,7 +37,7 @@ open_dropdowns('//div[contains(@class, "tab")]//following::label[1]')
 
 # цена до 2 000 000 рублей
 WebDriverWait(driver, 8).until(
-    EC.element_to_be_clickable((By.XPATH, '//input[@placeholder="до, руб."]')))
+    ec.element_to_be_clickable((By.XPATH, '//input[@placeholder="до, руб."]')))
 driver.find_element_by_xpath('//input[@placeholder="до, руб."]').send_keys("2000000")
 
 search("1-к квартира")
