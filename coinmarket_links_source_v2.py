@@ -33,9 +33,7 @@ def new_page(n):
 
 new_page(9)
 
-tabs_handles_temp = driver.window_handles
-tabs_handles = list(tabs_handles_temp)
-#  del tabs_handles[0]
+tabs_handles = driver.window_handles
 tabs_handles.append(tabs_handles.pop(0))
 tabs_handles.reverse()
 
