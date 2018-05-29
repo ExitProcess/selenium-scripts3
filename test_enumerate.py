@@ -2,29 +2,36 @@
 
 import time
 
-elements = ["100% (70000000000000000000000000000000000000) +" for i in range(0, 100000000)]
+x = 10000000
+
+###########################################################
+elements1 = [("777" + str(i)) for i in range(0, x)]
 
 for_in = time.time()
+
 count = 0
-for element in elements:
-    if "100" in element:
-        count += 1
+for element in elements1:
+    elements1[count] = int(element)
+    count += 1
+
 for_in = time.time() - for_in
 
-print("элементов в списке: ", count)
-print("времени затрачено: ", for_in)
+print("обычный for in: ", for_in)
+###########################################################
+
+###########################################################
+elements2 = [("777" + str(i)) for i in range(0, x)]
 
 enum_time = time.time()
 
-for (index, element) in enumerate(elements):
-    if "100" in element:
-        index += 1
+for (index2, element2) in enumerate(elements2):
+    elements2[index2] = int(element2)
+
 enum_time = time.time() - enum_time
 
-print("элементов в списке: ", index)
-print("enumerate времени затрачено: ", enum_time)
+print("enumerate: ", enum_time)
+###########################################################
 
-# элементов в списке:  100000000
-# времени затрачено:  24.672932624816895
-# элементов в списке:  100000000
-# enumerate времени затрачено:  35.64703869819641
+# x = 10000000
+# обычный for in:  5.985342025756836
+# enumerate:  5.213298320770264
