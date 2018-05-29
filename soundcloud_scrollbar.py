@@ -23,20 +23,20 @@ current_time_css = '.playbackTimeline__timePassed [aria-hidden]'
 
 # закрывает сообщение о кукисах
 cookie_close = WebDriverWait(driver, 7).until(ec.element_to_be_clickable((By.CSS_SELECTOR,
-                                                                              cookie_close_css)))
+                                                                          cookie_close_css)))
 cookie_close.click()
 
 
 def manager():
     # наводит на скроллбар, чтобы появился хендл перемотки
     progressbar = WebDriverWait(driver, 5).until(ec.element_to_be_clickable((By.CSS_SELECTOR,
-                                                                                 progressbar_css)))
+                                                                             progressbar_css)))
     ActionChains(driver).move_to_element(progressbar).perform()
 
     # захват хендла перемотки
     global handle
     handle = WebDriverWait(driver, 5).until(ec.element_to_be_clickable((By.CSS_SELECTOR,
-                                                                                   handle_css)))
+                                                                        handle_css)))
     ActionChains(driver).click_and_hold(handle).perform()
 
     # получение текущего времени воспроизведения
