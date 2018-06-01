@@ -27,14 +27,15 @@ del list_mcap_elements_inc[-1]
 # работа с list_mcap_elements_dec
 # цикл проверяет, чтобы следующий элемент списка был меньше предыдущего
 count = 0
-for i in range(0, len(list_mcap_elements_dec)):  # последний элемент списка _не_ надо выводить отдельно, обработка Try
+for i in range(0, len(list_mcap_elements_dec)):  # последний элемент списка _не_ надо проверять вне цикла; обработка Try
     elem_current = list_mcap_elements_dec[i].text
     try:
         elem_next = list_mcap_elements_dec[i + 1].text
-    except Exception:  # сработает, когда elem_current == list[-1], т.е. ссылается на последний элемент списка
-        count += 1
-        print(count, elem_current)
-        break
+    except Exception:  # сработает, когда elem_current == list[-1], т.е. ссылается на последний элемент списка ($?)
+        if list_mcap_elements_dec[-1].text == "$?":
+            count += 1
+            print(count, elem_current)
+            break
     # условия для сравнения строк разной и одинаковой длины
     # len($146 109 484 586) > len($67 635 761 404) or "$67 635 761 404" > "$27 646 445 524"
     if len(elem_current) > len(elem_next) or elem_current > elem_next:
