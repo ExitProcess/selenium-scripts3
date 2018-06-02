@@ -1,5 +1,6 @@
 # скрипт проверяет работу сортировки рыночной стоимости криптовалют на сайте
 # https://coinmarketcap.com/all/views/all/
+# AssertionError срабатывает из-за причины, найденной в coinmarket_allmc_debug.py
 
 from selenium import webdriver
 
@@ -72,3 +73,5 @@ driver.quit()
 #  File "C:/Users/alexey/PycharmProjects/selenium-scripts3/coinmarket_all_marketcap.py", line 49, in <module>
 #    assert list_mcap_elements_inc == list_mcap_elements_dec
 # AssertionError
+# +
+# см. coinmarket_allmc_debug.py
