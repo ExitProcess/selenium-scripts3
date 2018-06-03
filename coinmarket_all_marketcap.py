@@ -1,6 +1,7 @@
 # скрипт проверяет работу сортировки рыночной стоимости криптовалют на сайте
 # https://coinmarketcap.com/all/views/all/
 # AssertionError срабатывает из-за причины, найденной в coinmarket_allmc_debug.py
+# AssertionError исправлен, теперь сравнение списков проходит успешно
 
 from selenium import webdriver
 
@@ -87,3 +88,12 @@ driver.quit()
 # AssertionError
 # +
 # см. coinmarket_allmc_debug.py
+#
+# 03.06.2018, сравнение списков поправлено
+# 1638 $?
+# 1639 $?
+# 1639
+# сортировка market cap по убыванию работает
+# сортировка market cap по возрастанию работает
+#
+# Process finished with exit code 0
