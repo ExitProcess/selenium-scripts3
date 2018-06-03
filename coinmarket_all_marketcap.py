@@ -28,6 +28,7 @@ del list_mcap_elements_inc[-1]
 # работа с list_mcap_elements_dec
 # цикл проверяет, чтобы следующий элемент списка был меньше предыдущего
 count = 0
+na_count = 0
 for i in range(0, len(list_mcap_elements_dec)):  # последний элемент списка _не_ надо проверять вне цикла; обработка Try
     elem_current = list_mcap_elements_dec[i].text
     try:
@@ -35,6 +36,7 @@ for i in range(0, len(list_mcap_elements_dec)):  # последний элеме
     except Exception:  # сработает, когда elem_current == list[-1], т.е. ссылается на последний элемент списка ($?)
         if list_mcap_elements_dec[-1].text == "$?":
             count += 1
+            na_count += 1  # последний элемент "$?"
             print(count, elem_current)
             break
     # условия для сравнения строк разной и одинаковой длины
@@ -44,6 +46,7 @@ for i in range(0, len(list_mcap_elements_dec)):  # последний элеме
         print(count, elem_current)
     elif len(elem_current) < 3:
         count += 1
+        na_count += 1  # подсчет элементов "$?"
         print(count, elem_current)
 
 print(count)
@@ -51,8 +54,17 @@ print(count)
 assert count == len(list_mcap_elements_dec)
 print("сортировка market cap по убыванию работает")
 
-list_mcap_elements_inc.reverse()
-assert list_mcap_elements_inc == list_mcap_elements_dec
+# подготовка списка list_mcap_elements_inc для сравнения его с list_mcap_elements_dec
+new_list_inc = []
+for i in range(0, na_count):
+    new_list_inc.append(list_mcap_elements_inc.pop(0))
+
+new_list_inc.reverse()
+
+new_list_inc.extend(list_mcap_elements_inc)
+new_list_inc.reverse()
+
+assert new_list_inc == list_mcap_elements_dec
 print("сортировка market cap по возрастанию работает")
 
 driver.close()
