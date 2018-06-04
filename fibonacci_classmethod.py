@@ -22,3 +22,6 @@ f.fibo_change(10)
 print(f.a, f.b)
 
 print(f2.a, f2.b)
+
+f3 = Fibo()
+print(f3.a, f3.b)
