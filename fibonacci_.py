@@ -7,3 +7,9 @@ def fibo(n):
 
 
 fibo(5555)
+
+# a, b = b, a + b
+#
+# temp = a
+# a = b
+# b = a + temp
