@@ -25,3 +25,12 @@ print(f2.a, f2.b)
 
 f3 = Fibo()
 print(f3.a, f3.b)
+
+###################################
+# 0 1
+# 0 1
+# 55 89
+# 55 89
+# 55 89
+#
+# Process finished with exit code 0
