@@ -83,7 +83,7 @@ driver.quit()
 # 1624
 # сортировка market cap по убыванию работает
 # Traceback (most recent call last):
-#  File "C:/Users/alexey/PycharmProjects/selenium_scripts3/coinmarket_all_marketcap.py", line 49, in <module>
+#  File "C:/Users/alexey/PycharmProjects/selenium-scripts3/coinmarket_all_marketcap.py", line 49, in <module>
 #    assert list_mcap_elements_inc == list_mcap_elements_dec
 # AssertionError
 # +
