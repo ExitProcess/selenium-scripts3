@@ -53,3 +53,4 @@ for country in countries_list:
 
 driver.close()
 driver.quit()
+
