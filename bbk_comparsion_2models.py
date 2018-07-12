@@ -6,10 +6,11 @@
 # после чего открывается страница сравнения
 # cкрипт неоптимизирован!!! в скрипте используется метод получения всех ссылок на странице
 
+import time
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
 path = 'C:\SeleniumDrivers\Chrome\chromedriver.exe'
@@ -32,7 +33,7 @@ link_list = driver.find_elements_by_tag_name("a")  # список всех эл�
 for i in link_list:  # выбираем только элементы моделей, добавляем в model_list
     if len(i.text) == 10:
         model_list.append(i)
-print(model_list)
+# print(model_list)
 
 a = "145"
 b = "240"
@@ -67,3 +68,7 @@ comparsion.click()
 comparsion2 = WebDriverWait(driver, 4).until(ec.element_to_be_clickable((By.CSS_SELECTOR,
                                                                          ".compare_link")))
 comparsion2.click()
+
+time.sleep(5)
+driver.close()
+driver.quit()
