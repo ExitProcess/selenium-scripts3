@@ -46,10 +46,9 @@ while 0 in url_base_result:  # выполнять, пока есть ссылк�
 
         # фильтрация ссылок: не проверяются внешние сайты, подсайты -- docs.python.org и прочие
         # игнорируются ссылки внутри страницы (https://www.python.org/about/success/#software-development)
-        # игнорируются ссылки на скачивание файлов:
-        if "www.python.org" in str(url) and "#" not in str(url):
-            if "download" not in str(url) and "ftp" not in str(url):
-                urls_list_from_page.append(url)
+        # игнорируются прямые ссылки на скачивание файлов, но страницы релизов учитываются:
+        if "www.python.org" in str(url) and "#" not in str(url) and "ftp" not in str(url):
+            urls_list_from_page.append(url)
 
     unique_urls_list_from_page = list(set(urls_list_from_page))  # временный список для уникальных ссылок
 
