@@ -103,6 +103,10 @@ driver.quit()
 # http://www.python.org/2006/cfp
 # http://www.python.org/workshops/oscon2002
 # https://www.python.org/community/index.html
-#
+# 
+# все результаты:
+# https://github.com/ExitProcess/other_scripts/blob/master/broken_links.py
+# https://github.com/ExitProcess/other_scripts/blob/master/base_404.txt
+# 
 # в link_test_v2.py будет использоваться SQLite, а также requests и lxml
 # в бд будет сохраняться информация о родительской ссылке
