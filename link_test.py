@@ -84,8 +84,8 @@ while 0 in url_base_result:  # выполнять, пока есть ссылк�
     print(url_base_result.count(3), "битых ссылок в базе")
     print(base_404)
 
-    #print(url_base)
-    #print(url_base_result)
+    # print(url_base)
+    # print(url_base_result)
 
     # статус ссылки -- пока заглушка, потом будут проверки для выставления точного статуса
     url_base_result[index] = 1
