@@ -35,7 +35,7 @@ while index != len(links_base):
         continue
     else:
         tree = html.fromstring(response.read())
-        tree.make_links_absolute(links_base[index], resolve_base_href=False)
+        tree.make_links_absolute(response.geturl(), resolve_base_href=False)
 
         links_list = tree.xpath('//a/@href')
 
@@ -44,16 +44,15 @@ while index != len(links_base):
         # ссылки с якорями ('https://www.python.org/about/success/#government')
         for link in links_list:
             if "ftp" not in link and "#" not in link and "www.python.org" in link:
-                # для того, чтобы работал метод make_links_absolute, ссылка должна заканчиваться слешем
-                # "?" not in link - https://www.python.org/jobs/?page=1 -- не добавлять слеш, т.к. запрос
-                # не добавлять слеш к расширениям -- .asc, .txt, .png, .psd, .svg, .pdf, .html и т.д.
-                if link[-1] != "/":
-                    if link[-4] != "." and link[-5] != "." and "?" not in link:
-                        link = link + "/"
                 if link not in links_base:
                     links_base.append(link)
                     referer_link.append(links_base[index])
+        # инфо для отладки
+        print(links_base[index])
+        print(response.geturl())
+
     index += 1
+
     # инфо для отладки
     print(index)
     print(len(links_base))
