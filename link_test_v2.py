@@ -1,31 +1,16 @@
 # еще один линк-чекер, в отличие от первой версии, которая была реализована на библиотеке selenium webdriver,
 # во второй версии используются библиотеки urllib и lxml
 
+import time
 import urllib.error
 import urllib.request
 from lxml import html
+from lxml import etree
 
 # список прокси
-proxy_index = -1
-proxies = ['91.234.183.112:41258',
-           '5.175.75.190:8080',
-           '91.224.63.218:8080',
-           '168.181.212.101:8080',
-           '212.69.18.132:36029',
-           '178.63.8.211:3128',
-           '46.50.136.4:53281',
+proxies = ['91.224.63.218:8080',
            '46.45.19.138:53281',
-           '2.94.171.75:8080',
-           '178.33.194.169:3128',
            '89.189.130.205:8080',
-           '46.227.161.214:53281',
-           '188.120.231.22:10009',
-           '81.163.61.21:41258',
-           '178.176.28.164:8080',
-           '109.74.142.138:53281',
-           '77.79.146.91:3128',
-           '193.105.124.127:8080',
-           '91.201.169.243:41258'
            ]
 
 links_base = ["https://www.python.org/", ]
@@ -36,14 +21,53 @@ count_404 = 0
 doc = open("404.txt", "w+")
 doc.close()
 
+
+# переключение прокси
+def proxy_handler(x):
+    proxy_support = urllib.request.ProxyHandler({'https': x})
+    opener = urllib.request.build_opener(proxy_support)
+    urllib.request.install_opener(opener)
+
+
+# выбор самого быстрого прокси
+def select_fast_proxy():
+    proxy_response = []
+    for proxy in proxies:
+        try:
+            proxy_handler(proxy)
+            start = time.time()
+            urllib.request.urlopen('https://www.python.org/')
+            finish = time.time() - start
+            proxy_response.append(finish)
+        except Exception:
+            proxy_response.append(99.99)
+
+    fast_proxy_index = proxy_response.index(min(proxy_response))
+    print(proxies[fast_proxy_index], proxy_response[fast_proxy_index])
+    return fast_proxy_index
+
+
 while index != len(links_base):
     try:
+        if (index % 50) == 0:
+            response = urllib.request.urlopen('https://api.ipify.org')
+            ip = response.read()
+            print('My public IP address is: {}'.format(ip))
+
         response = urllib.request.urlopen(links_base[index])
+
+        # инфо для отладки
+        print(links_base[index])
+        print(response.geturl())
+
         # обработка переадресации на подсайт
+        # https://www.python.org/psf/license ->> https://docs.python.org/3/license.html
+        # подсайты не проверяются
         if "www.python.org" not in response.geturl():
-            index += 1
             continue
     except UnicodeEncodeError:  # обработка unicode-ссылок, пока заглушка, позже будет нормальный обработчик
+        # https://www.python.org/events/python-events/553/“https:/pydata.org/delhi2017“
+        # ссылка находится на странице https://www.python.org/events/python-events/553/
         print(links_base[index])
     except urllib.error.HTTPError as error:
         if error.code == 404:
@@ -53,37 +77,33 @@ while index != len(links_base):
             doc.close()
             count_404 += 1
     except urllib.error.URLError as error:  # обычно [WinError 10060]
+        # [WinError 10054] Удаленный хост принудительно разорвал существующее подключение
         print(error.reason)
-        proxy_index += 1  # (первый или) следующий прокси из списка
-        try:
-            proxy_support = urllib.request.ProxyHandler({'https': proxies[proxy_index]})
-            opener = urllib.request.build_opener(proxy_support)
-            urllib.request.install_opener(opener)
-            continue
-        except Exception:  # если не удалось подключиться к прокси, то повторить запрос с предыдущим подключением
-            continue
+        print("выбор самого быстрого прокси-сервера")
+        fast_proxy_index = select_fast_proxy()
+        proxy_handler(proxies[fast_proxy_index])
+        index -= 1
     else:
-        tree = html.fromstring(response.read())
-        tree.make_links_absolute(response.geturl(), resolve_base_href=False)
+        try:
+            tree = html.fromstring(response.read())
+            tree.make_links_absolute(response.geturl(), resolve_base_href=False)
 
-        links_list = tree.xpath('//a/@href')
+            links_list = tree.xpath('//a/@href')
 
-        # обработка результатов -- ссылки только на www.python.org, не добавлять в список:
-        # подсайты и сторонние сайты ('https://docs.python.org/3/', 'http://twitter.com/ThePSF')
-        # ссылки с якорями ('https://www.python.org/about/success/#government')
-        for link in links_list:
-            if "ftp" not in link and "#" not in link and "www.python.org" in link:
-                if link not in links_base:
-                    links_base.append(link)
-                    referer_link.append(links_base[index])
+            # обработка результатов -- ссылки только на www.python.org, не добавлять в список:
+            # подсайты и сторонние сайты ('https://docs.python.org/3/', 'http://twitter.com/ThePSF')
+            # ссылки с якорями ('https://www.python.org/about/success/#government')
+            for link in links_list:
+                if "ftp" not in link and "#" not in link and "www.python.org" in link and "web.archive.org" not in link:
+                    if link not in links_base:
+                        links_base.append(link)
+                        referer_link.append(links_base[index])
+        except etree.ParserError as error:
+            print(error)
+    finally:
+        index += 1
         # инфо для отладки
-        print(links_base[index])
-        print(response.geturl())
-
-    index += 1
-
-    # инфо для отладки
-    print(index)
-    print(len(links_base))
-    print(len(referer_link))
-    print(count_404)
+        print(index)
+        print(len(links_base))
+        print(len(referer_link))
+        print(count_404)
