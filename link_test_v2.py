@@ -8,7 +8,7 @@ from lxml import html
 from lxml import etree
 
 # список прокси
-proxies = ['91.224.63.218:8080',
+proxies = ['46.50.136.4:53281',
            '46.45.19.138:53281',
            '89.189.130.205:8080',
            ]
@@ -49,6 +49,7 @@ def select_fast_proxy():
 
 while index != len(links_base):
     try:
+        # каждые 50 итераций показывать ip
         if (index % 50) == 0:
             response = urllib.request.urlopen('https://api.ipify.org')
             ip = response.read()
@@ -68,7 +69,11 @@ while index != len(links_base):
     except UnicodeEncodeError:  # обработка unicode-ссылок, пока заглушка, позже будет нормальный обработчик
         # https://www.python.org/events/python-events/553/“https:/pydata.org/delhi2017“
         # ссылка находится на странице https://www.python.org/events/python-events/553/
-        print(links_base[index])
+        doc = open("404.txt", "a+")
+        doc.write(referer_link[index] + "\n")
+        doc.write((" " * 8) + links_base[index] + "\n")
+        doc.close()
+        count_404 += 1
     except urllib.error.HTTPError as error:
         if error.code == 404:
             doc = open("404.txt", "a+")
@@ -94,12 +99,14 @@ while index != len(links_base):
             # подсайты и сторонние сайты ('https://docs.python.org/3/', 'http://twitter.com/ThePSF')
             # ссылки с якорями ('https://www.python.org/about/success/#government')
             for link in links_list:
-                if "ftp" not in link and "#" not in link and "www.python.org" in link and "web.archive.org" not in link:
-                    if link not in links_base:
-                        links_base.append(link)
-                        referer_link.append(links_base[index])
+                if "ftp" not in link and "#" not in link:
+                    if "www.python.org" in link and "web.archive.org" not in link and "www.python.org.ar" not in link:
+                        if link not in links_base:
+                            links_base.append(link)
+                            referer_link.append(links_base[index])
         except etree.ParserError as error:
-            print(error)
+            # обработка пустых страниц, например https://www.python.org.ar/wiki/PyCamp/2018/raw
+            print(error)  # Document is empty
     finally:
         index += 1
         # инфо для отладки
