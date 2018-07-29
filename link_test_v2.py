@@ -115,3 +115,11 @@ while index != len(links_base):
         print(len(links_base))
         print(len(referer_link))
         print(count_404)
+
+# https://www.python.org/events/python-events/locations/70/ -- последняя проверенная ссылка
+# https://www.python.org/events/python-events/locations/70/
+# 4540 -- index
+# 4540 -- ссылок в базе
+# 4540 -- ссылок-рефералов
+# 414 -- битых ссылок
+# Process finished with exit code 0
