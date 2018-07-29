@@ -69,7 +69,8 @@ while index != len(links_base):
     except UnicodeEncodeError:  # обработка unicode-ссылок, пока заглушка, позже будет нормальный обработчик
         # https://www.python.org/events/python-events/553/“https:/pydata.org/delhi2017“
         # ссылка находится на странице https://www.python.org/events/python-events/553/
-        doc = open("404.txt", "a+")
+        # + https://www.python.org/events/python-user-group/192/
+        doc = open("404.txt", "a+", encoding="utf-8")
         doc.write(referer_link[index] + "\n")
         doc.write((" " * 8) + links_base[index] + "\n")
         doc.close()
