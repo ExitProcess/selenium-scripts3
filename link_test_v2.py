@@ -123,3 +123,7 @@ while index != len(links_base):
 # 4540 -- ссылок-рефералов
 # 414 -- битых ссылок
 # Process finished with exit code 0
+#
+# результат работы:
+# https://github.com/ExitProcess/other_scripts/blob/master/404_link_test_v2.txt
+#
