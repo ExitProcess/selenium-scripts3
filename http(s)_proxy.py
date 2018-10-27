@@ -24,18 +24,18 @@ source = driver.page_source
 tree = html.fromstring(source)
 
 percents = tree.xpath("//tr/td[8]")  # 503
-ip_ports = tree.xpath("//td/table/tbody/tr/td[1]")  # 504
+ip_ports = tree.xpath("//td/table/tbody/tr/td[1]")  # 503
 countries = tree.xpath("//tr/td[5]")  # 503
-http_types = tree.xpath("//tr/td[2]")  # 507
+http_types = tree.xpath("//tr/td[2]")  # 506
 
 i = 1
 for percent in percents:
     percent = percent.text_content()
-    http_type = http_types[i + 2].text_content()
+    http_type = http_types[i + 1].text_content()
 
     if "100" in percent and "HTTPS" in http_type:
-        country = countries[i - 1].text_content()
-        ip_port = ip_ports[i].text_content()
+        country = countries[i-1].text_content()
+        ip_port = ip_ports[i-1].text_content()
 
         # 7 117.57.245.249document.write("&lt;font class=spy2&gt;:&lt;\/font&gt;"+(r8a1z6^x4i9)+(t0q7h8^o5e5)+
         # (y5w3o5^y5p6)+(t0q7h8^o5e5)):1080
