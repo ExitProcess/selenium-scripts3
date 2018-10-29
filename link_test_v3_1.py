@@ -154,20 +154,3 @@ while count < cur.lastrowid:
         count += 1
         print("обработано ссылок: %s" % count)
         print("ссылок в БД: %s" % cur.lastrowid)
-
-#
-# вывод в консоль в конце работы:
-#
-# ссылок в БД: 4545
-# переход по ссылке: https://www.python.org/events/python-user-group/locations/110/
-# обработано ссылок: 4543
-# ссылок в БД: 4545
-# переход по ссылке: https://www.python.org/events/python-events/locations/61/
-# обработано ссылок: 4544
-# ссылок в БД: 4545
-# переход по ссылке: https://www.python.org/events/python-events/locations/70/
-# обработано ссылок: 4545
-# ссылок в БД: 4545
-#
-# Process finished with exit code 0
-#
