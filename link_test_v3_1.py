@@ -72,8 +72,6 @@ while count < cur.lastrowid:
 
         # ссылка, id и http-статус из первой записи в Links, где HTTP status code = 0
         first_not_tested_link = rows_list[1]  # 'https://www.python.org'
-        first_not_tested_link_id = rows_list[0]  # 1
-        first_not_tested_link_http_status = rows_list[2]  # 0
 
         # HTTP-запрос к выбранной странице
         # отладка
