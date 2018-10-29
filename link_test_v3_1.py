@@ -70,16 +70,13 @@ while count < cur.lastrowid:
             rows = cur.fetchall()  # <class 'list'>: [(1, 'https://www.python.org', 0)]
             rows_list = list(rows[0])  # <class 'list'>: [1, 'https://www.python.org', 0]
 
-        # первая строка столбца Link, где HTTP status code = 0
+        # столбцы Link и Id первой строки, где HTTP status code = 0
         first_not_tested_link = rows_list[1]  # 'https://www.python.org'
+        first_not_tested_link_id = rows_list[0]  # 1
 
         # HTTP-запрос к выбранной странице
-        # отладка
-        print("переход по ссылке: %s" % first_not_tested_link)
+        print("переход по ссылке: %s" % first_not_tested_link)  # выводится для отладки
         response = urllib.request.urlopen(first_not_tested_link)
-
-        # print(response.geturl())
-        # print(response.getcode())
 
     # обработчик ошибок HTTP
     except urllib.error.HTTPError as error:
