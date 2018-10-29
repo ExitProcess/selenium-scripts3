@@ -70,7 +70,7 @@ while count < cur.lastrowid:
             rows = cur.fetchall()  # <class 'list'>: [(1, 'https://www.python.org', 0)]
             rows_list = list(rows[0])  # <class 'list'>: [1, 'https://www.python.org', 0]
 
-        # ссылка, id и http-статус из первой записи в Links, где HTTP status code = 0
+        # первая строка столбца Link, где HTTP status code = 0
         first_not_tested_link = rows_list[1]  # 'https://www.python.org'
 
         # HTTP-запрос к выбранной странице
