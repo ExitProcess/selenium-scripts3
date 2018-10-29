@@ -24,9 +24,6 @@ with con:
     cur.execute("CREATE TABLE Links_3_1(Id INTEGER PRIMARY KEY, Link TEXT, HTTP_status_code INT, Parent TEXT)")
     # добавление 1 записи
     cur.execute("INSERT INTO Links_3_1(Link, HTTP_status_code, Parent) VALUES ('https://www.python.org/', 0, 'https://www.python.org/')")
-    #  отладочные записи
-    #  cur.execute("INSERT INTO Links(Link, HTTP_status_code) VALUES ('https://www.python.org/111', 0)")
-    #  cur.execute("INSERT INTO Links(Link, HTTP_status_code) VALUES ('https://www.python.org/444', 0)")
 
 # переменные
 # список прокси
