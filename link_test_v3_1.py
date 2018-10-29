@@ -115,15 +115,6 @@ while count < cur.lastrowid:
         tree.make_links_absolute(response.geturl(), resolve_base_href=False)
         links_list = tree.xpath('//a/@href')
 
-        # создание списка ссылок из таблицы Links
-        #with con:
-        #    cur = con.cursor()
-        #    cur.execute("SELECT Link FROM Links_3_1")
-        #    db_links = cur.fetchall()  # [('https://www.python.org',)]
-        #    # print(db_links)
-        #    db_links_list = [i[0] for i in db_links]  # ['https://www.python.org']
-        #    # print(db_links_list)
-
         # обработка результатов -- ссылки только на www.python.org, не добавлять в список:
         # подсайты и сторонние сайты ('https://docs.python.org/3/', 'http://twitter.com/ThePSF')
         # ссылки с якорями ('https://www.python.org/about/success/#government')
