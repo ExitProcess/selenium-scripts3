@@ -93,10 +93,8 @@ while count < cur.lastrowid:
         proxy_handler(proxies[fast_proxy_index])
         count -= 1
 
-    except UnicodeEncodeError:  # обработка unicode-ссылок (заглушка)
+    except UnicodeEncodeError:  # обработка unicode-ссылок (заглушка), ссылки наподобие
         # https://www.python.org/events/python-events/553/“https:/pydata.org/delhi2017“
-        # ссылка находится на странице https://www.python.org/events/python-events/553/
-        # + https://www.python.org/events/python-user-group/192/
         # unicode-ссылкам проставляется http-status 999, позже будет нормальный обработчик (на urllib.parse)
         with con:
             cur = con.cursor()
@@ -115,7 +113,7 @@ while count < cur.lastrowid:
         tree.make_links_absolute(response.geturl(), resolve_base_href=False)
         links_list = tree.xpath('//a/@href')
 
-        # обработка результатов -- ссылки только на www.python.org, не добавлять в список:
+        # обработка результатов -- ссылки только на www.python.org, не добавлять в таблицу:
         # подсайты и сторонние сайты ('https://docs.python.org/3/', 'http://twitter.com/ThePSF')
         # ссылки с якорями ('https://www.python.org/about/success/#government')
         for new_link in links_list:
