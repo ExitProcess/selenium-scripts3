@@ -12,18 +12,6 @@ import urllib.request
 from lxml import html
 from lxml import etree
 
-# подключение к базе данных
-con = sqlite3.connect("links_v3_v3.1.db")
-
-# начало работы с базой данных
-with con:
-    cur = con.cursor()
-    # удаление старой таблицы Links, если она существует
-    cur.execute("DROP TABLE IF EXISTS Links_3_1")
-    # создание таблицы Links
-    cur.execute("CREATE TABLE Links_3_1(Id INTEGER PRIMARY KEY, Link TEXT, HTTP_status_code INT, Parent TEXT)")
-    # добавление 1 записи
-    cur.execute("INSERT INTO Links_3_1(Link, HTTP_status_code, Parent) VALUES ('https://www.python.org/', 0, 'https://www.python.org/')")
 
 # переменные
 # список прокси
@@ -60,6 +48,18 @@ def select_fast_proxy():
     print(proxies[fast_proxy_index], proxy_response[fast_proxy_index])
     return fast_proxy_index
 
+
+# подключение к базе данных
+con = sqlite3.connect("links_v3_v3.1.db")
+# начало работы с базой данных
+with con:
+    cur = con.cursor()
+    # удаление старой таблицы Links, если она существует
+    cur.execute("DROP TABLE IF EXISTS Links_3_1")
+    # создание таблицы Links
+    cur.execute("CREATE TABLE Links_3_1(Id INTEGER PRIMARY KEY, Link TEXT, HTTP_status_code INT, Parent TEXT)")
+    # добавление 1 записи
+    cur.execute("INSERT INTO Links_3_1(Link, HTTP_status_code, Parent) VALUES ('https://www.python.org/', 0, 'https://www.python.org/')")
 
 while count < cur.lastrowid:
     try:
@@ -137,3 +137,13 @@ while count < cur.lastrowid:
         count += 1
         print("обработано ссылок: %s" % count)
         print("ссылок в БД: %s" % cur.lastrowid)
+
+# ссылок в БД: 4570
+# переход по ссылке: https://www.python.org/events/python-events/locations/61/
+# обработано ссылок: 4569
+# ссылок в БД: 4570
+# переход по ссылке: https://www.python.org/events/python-events/locations/70/
+# обработано ссылок: 4570
+# ссылок в БД: 4570
+#
+# Process finished with exit code 0
