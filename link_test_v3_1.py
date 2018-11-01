@@ -117,11 +117,9 @@ while count < cur.lastrowid:
         for new_link in links_list:
             if "ftp" not in new_link and "#" not in new_link:
                 if "www.python.org" in new_link and "web.archive.org" not in new_link and "www.python.org.ar" not in new_link:
-                    # создание кортежа (аргумент для запроса к таблице)
-                    new_link_tuple = (new_link, )
                     with con:
                         cur = con.cursor()
-                        cur.execute("SELECT Link FROM Links_3_1 WHERE Link = ?", new_link_tuple)
+                        cur.execute("SELECT Link FROM Links_3_1 WHERE Link = ?", (new_link, ))
                         link_exist = cur.fetchall()
                     if len(link_exist) == 0:
                         with con:
