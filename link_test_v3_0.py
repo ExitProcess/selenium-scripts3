@@ -1,14 +1,12 @@
 # линк-чекер python.org, третья версия
 # в отличие от прошлой версии, третья версия использует БД (sqlite)
 
-import sys
 import time
 import sqlite3
 import urllib.error
 import urllib.request
 
 from lxml import html
-from lxml import etree
 
 # подключение к базе данных
 con = sqlite3.connect("links.db")
