@@ -3,14 +3,12 @@
 # по сравнению с v3, немного изменен алгоритм проверки наличия ссылки в БД -- v3 использовала для этого промежуточный
 # список, v3.1 работает напрямую с таблицей БД
 
-import sys
 import time
 import sqlite3
 import urllib.error
 import urllib.request
 
 from lxml import html
-from lxml import etree
 
 
 # переменные
