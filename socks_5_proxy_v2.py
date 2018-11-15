@@ -17,7 +17,7 @@ driver.get("http://spys.one/proxies/")
 # SOCKS5
 sort_socks5 = driver.find_element_by_id("xf5")
 sort_socks5.click()
-select.Select(sort_socks5).select_by_value("2")
+select.Select(sort_socks5).select_by_value("1")
 
 # 500 элементов
 sort_all = driver.find_element_by_id("xpp")
