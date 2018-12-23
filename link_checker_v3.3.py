@@ -1,5 +1,5 @@
 # линк-чекер python.org
-# формирует две таблицы: таблицу со ссылками и таблицу всех ссылок на каждой странице
+# формирует две таблицы: таблицу со ссылками и кодами состояния, и таблицу всех ссылок на каждой странице
 
 import time
 import sqlite3
@@ -115,7 +115,7 @@ while count < last_id:
 
         # формирование списка ссылок, которые будут добавлены в таблицы
         # в таблицу Links добавляются только ссылки на www.python.org. не добавляются:
-        # подсайты и сторонние сайты ('https://docs.python.org/3/', 'http://twitter.com/ThePSF')
+        # подсайты и сторонние сайты ('https://docs.python.org/', 'http://twitter.com/ThePSF')
         # ссылки с якорями ('https://www.python.org/about/success/#government')
         new_links = []
         for link in links:
