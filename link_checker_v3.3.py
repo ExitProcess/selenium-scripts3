@@ -1,14 +1,12 @@
 # линк-чекер python.org
 # формирует две таблицы: таблицу со ссылками и таблицу всех ссылок на каждой странице
 
-import sys
 import time
 import sqlite3
 import urllib.error
 import urllib.request
 
 from lxml import html
-from lxml import etree
 
 # переменные
 # список прокси
