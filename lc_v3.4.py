@@ -80,7 +80,10 @@ while count < last_id:
 
         # HTTP-запрос к выбранной странице
         print("переход по ссылке: %s" % first_not_parsed_link)  # выводится для отладки
+        time3 = time.time()
         response = urllib.request.urlopen(first_not_parsed_link)
+        time3 = time.time() - time3
+        print("время получения ответа: ", time3)
 
     # обработчик ошибок HTTP
     except urllib.error.HTTPError as error:
