@@ -22,6 +22,8 @@ proxies = ['178.46.188.202:39864',
 # счетчик
 count = 0
 last_id = 1
+time1 = 0
+time2 = 0
 
 
 # переключение прокси
@@ -126,6 +128,7 @@ while count < last_id:
         new_links = tuple(new_links)
 
         # наполнение таблицы Links
+        time0 = time.time()
         for new_link in new_links:
             with con:
                 cur = con.cursor()
@@ -136,6 +139,8 @@ while count < last_id:
                     cur = con.cursor()
                     cur.execute("INSERT INTO Links (Link, HTTP_status_code) VALUES (?, ?)", (new_link, 0))
                     last_id = cur.lastrowid
+        time0 = time.time() - time0
+        time1 += time0
 
         # наполнение таблицы Parent_child, то есть формирование таблицы связей
         # Parent_link и Child_link -- Id ссылок в таблице Links
@@ -143,7 +148,7 @@ while count < last_id:
         # | Id | Parent_link | Child_link |
         # | 1  |           1 |          1 | Parent_link - https://www.python.org/, Child_link - https://www.python.org/
         # | 2  |           1 |          2 | Parent_link - https://www.python.org/, Child_link - https://www.python.org/psf-landing/
-
+        time0 = time.time()
         for new_link in new_links:
             with con:
                 cur = con.cursor()
@@ -152,11 +157,15 @@ while count < last_id:
                 row = list(child_link[0])
                 child_link_id = row[0]
                 cur.execute("INSERT INTO Parent_child (Parent_link, Child_link) VALUES (?, ?)", (first_not_parsed_link_id, child_link_id))
+        time0 = time.time() - time0
+        time2 += time0
 
     finally:
         count += 1
         print("обработано ссылок: %s" % count)
         print("ссылок в БД: %s" % last_id)
+        print("первая таблица обработана:", time1)
+        print("вторая таблица обработана:", time2)
 
 # v3.1 -- в отличие от v2, третья версия использует БД (sqlite)
 # по сравнению с v3, немного изменен алгоритм проверки наличия ссылки в БД -- v3 использовала для этого промежуточный
